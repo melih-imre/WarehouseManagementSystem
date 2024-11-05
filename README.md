@@ -6,8 +6,8 @@ Welcome to the Warehouse Item Counter, an innovative system designed to assist b
 
 
 # Technologies
-JavaFX: For creating all graphical user interfaces.
-MySQL: For database management, ensuring robust data handling and retrieval.
+* JavaFX: For creating all graphical user interfaces.
+* MySQL: For database management, ensuring robust data handling and retrieval.
 
 # Team
 * Melih: Contributed to the core functionality and database integration.
