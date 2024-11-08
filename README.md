@@ -15,3 +15,7 @@ Welcome to the Warehouse Item Counter, an innovative system designed to assist b
 * Anandhu: Focused on feature development and enhancements.
 
 * Numan: Project lead, responsible for overall design and project coordination.
+
+* Sai: working on tabs and data.
+
+
