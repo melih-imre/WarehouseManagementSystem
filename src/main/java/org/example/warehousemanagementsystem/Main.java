@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.database.Database;
+
 import java.io.IOException;
+//import java.io.IOException;
 
 
 public class Main extends Application {
