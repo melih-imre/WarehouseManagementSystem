@@ -1,5 +1,7 @@
 package org.example.warehousemanagementsystem.database;
 
+import org.example.warehousemanagementsystem.tables.TableCreator;
+
 import java.sql.*;
 import static org.example.warehousemanagementsystem.database.Const.*;
 
@@ -18,6 +20,8 @@ public class Database {
                             );
             System.out.println("created connection");
             //create table
+            TableCreator.createTable(DBConst.TABLE_BRAND, DBConst.CREATE_TABLE_BRAND_ID, connection);
+            TableCreator.createTable(DBConst.TABLE_PRODUCT, DBConst.CREATE_TABLE_PRODUCTS, connection);
 
 
         }catch (Exception e){
