@@ -21,7 +21,15 @@ public class Database {
             System.out.println("created connection");
             //create table
             TableCreator.createTable(DBConst.TABLE_BRAND, DBConst.CREATE_TABLE_BRAND_ID, connection);
+            TableCreator.createTable(DBConst.TABLE_CATEGORIES, DBConst.CREATE_TABLE_CATEGORIES, connection);
             TableCreator.createTable(DBConst.TABLE_PRODUCT, DBConst.CREATE_TABLE_PRODUCTS, connection);
+            TableCreator.createTable(DBConst.TABLE_PRODUCT_CATEGORIES, DBConst.CREATE_TABLE_PRODUCT_CATEGORY, connection);
+            TableCreator.createTable(DBConst.TABLE_AISLES, DBConst.CREATE_TABLE_AISLES, connection);
+            TableCreator.createTable(DBConst.TABLE_SHELVES, DBConst.CREATE_TABLE_SHELVES, connection);
+            TableCreator.createTable(DBConst.TABLE_LOCATIONS, DBConst.CREATE_TABLE_LOCATIONS, connection);
+            TableCreator.createTable(DBConst.TABLE_CLIENTS, DBConst.CREATE_TABLE_CLIENTS, connection);
+            TableCreator.createTable(DBConst.TABLE_PRODUCT_LOCATIONS, DBConst.CREATE_TABLE_PRODUCT_LOCATIONS, connection);
+            TableCreator.createTable(DBConst.TABLE_TRANSACTIONS, DBConst.CREATE_TABLE_TRANSACTIONS, connection);
 
 
         }catch (Exception e){
