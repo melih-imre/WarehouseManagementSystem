@@ -22,7 +22,7 @@ public class ProductsTable implements ProductDAO {
 
 
     @Override
-    public ArrayList<Product> getAllCoins() {
+    public ArrayList<Product> getAllProducts() {
         String query = "SELECT * FROM " + TABLE_PRODUCT;
 
         products = new ArrayList<>();

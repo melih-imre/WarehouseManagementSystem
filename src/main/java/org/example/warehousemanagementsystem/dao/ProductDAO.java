@@ -5,6 +5,6 @@ import org.example.warehousemanagementsystem.pojo.Product;
 import java.util.ArrayList;
 
 public interface ProductDAO {
-    public ArrayList<Product> getAllCoins();
+    public ArrayList<Product> getAllProducts();
     public Product getProduct(int id);
 }
