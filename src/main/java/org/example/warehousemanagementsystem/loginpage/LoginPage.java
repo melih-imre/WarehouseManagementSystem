@@ -35,6 +35,8 @@ public class LoginPage extends GridPane {
         gridPane.setPadding(new Insets(20));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
+        gridPane.setStyle("-fx-background-color: linear-gradient(to bottom, #cbe5ea, #6ab7d3);");
+
 
         Label dbNameLabel = new Label("Database Name:");
         Label serverLocationLabel = new Label("Server Location:");
