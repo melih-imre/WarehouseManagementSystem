@@ -1,4 +1,4 @@
-package org.example.warehousemanagementsystem;
+package org.example.warehousemanagementsystem.Tabs;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 
 
-// example tabs i did Nm
 
 public class Example extends Application {
 
