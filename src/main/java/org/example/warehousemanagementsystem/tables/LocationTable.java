@@ -15,7 +15,7 @@ public class LocationTable implements LocationDAO {
     private static LocationTable instance;
     Database db = Database.getInstance();
     ArrayList<Location> locations;
-    private LocationTable(){db = Database.getInstance();}
+    public LocationTable(){db = Database.getInstance();}
 
     @Override
     public ArrayList<Location> getAllLocations() {

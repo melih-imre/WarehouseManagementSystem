@@ -15,7 +15,7 @@ public class BrandTable implements BrandDAO {
     private static BrandTable instance;
     Database db = Database.getInstance();
     ArrayList<Brand> brands;
-    private BrandTable() {
+    public BrandTable() {
         db = Database.getInstance();
     }
 

@@ -15,7 +15,7 @@ public class CategoryTable implements CategoryDAO {
     private static CategoryTable instance;
     Database db = Database.getInstance();
     ArrayList<Category> categories;
-    private CategoryTable(){db = Database.getInstance();}
+    public CategoryTable(){db = Database.getInstance();}
     @Override
     public ArrayList<Category> getAllCategories() {
         String query = "SELECT * FROM " + TABLE_CATEGORIES;
