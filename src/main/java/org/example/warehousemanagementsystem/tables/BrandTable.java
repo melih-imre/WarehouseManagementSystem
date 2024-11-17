@@ -55,7 +55,7 @@ public class BrandTable implements BrandDAO {
                 return brand;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }

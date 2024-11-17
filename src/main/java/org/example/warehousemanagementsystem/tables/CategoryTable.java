@@ -2,7 +2,6 @@ package org.example.warehousemanagementsystem.tables;
 
 import org.example.warehousemanagementsystem.dao.CategoryDAO;
 import org.example.warehousemanagementsystem.database.Database;
-import org.example.warehousemanagementsystem.pojo.Brand;
 import org.example.warehousemanagementsystem.pojo.Category;
 
 import java.sql.ResultSet;
@@ -53,7 +52,7 @@ public class CategoryTable implements CategoryDAO {
                 return category;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }

@@ -63,7 +63,7 @@ public class ProductsTable implements ProductDAO {
                         return product;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }

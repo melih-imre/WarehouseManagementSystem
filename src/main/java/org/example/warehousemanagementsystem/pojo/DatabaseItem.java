@@ -5,6 +5,10 @@ public class DatabaseItem {
 
     public DatabaseItem(int id) {this.id = id;}
 
+    public DatabaseItem() {
+
+    }
+
     public int getId() {
         return id;
     }
