@@ -3,6 +3,8 @@ package org.example.warehousemanagementsystem.tables;
 import org.example.warehousemanagementsystem.dao.ClientDAO;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.pojo.Client;
+import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayAisle;
+import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayClient;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +17,7 @@ public class ClientTable implements ClientDAO {
     private static ClientTable instance;
     Database db = Database.getInstance();
     ArrayList<Client> clients;
-    private ClientTable(){db = Database.getInstance();}
+    public ClientTable(){db = Database.getInstance();}
     @Override
     public ArrayList<Client> getAllClients() {
         String query = "SELECT * FROM " + TABLE_CLIENTS;
@@ -76,5 +78,33 @@ public class ClientTable implements ClientDAO {
             instance = new ClientTable();
         }
         return instance;
+    }
+
+    public ArrayList<DisplayClient> getItems(){
+        ArrayList<DisplayClient> clients = new ArrayList<DisplayClient>();
+        String query = "SELECT client_id, first_name, last_name, email, phone, " +
+                "street_number, street_name, city, state " +
+                "FROM clients " +
+                "ORDER BY client_id ASC";
+        try {
+            Statement getClients = db.getConnection().createStatement();
+            ResultSet data = getClients.executeQuery(query);
+            while (data.next()) {
+                clients.add(new DisplayClient(
+                        data.getInt("client_id"),
+                        data.getString("first_name"),
+                        data.getString("last_name"),
+                        data.getString("email"),
+                        data.getString("phone"),
+                        data.getString("street_number"),
+                        data.getString("street_name"),
+                        data.getString("city"),
+                        data.getString("state")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clients;
     }
 }

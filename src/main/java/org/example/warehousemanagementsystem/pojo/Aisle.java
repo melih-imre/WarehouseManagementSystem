@@ -7,6 +7,9 @@ public class Aisle extends DatabaseItem{
         super(id);
         this.aisle = aisle;
     }
+    public Aisle(){
+
+    }
 
     public String getAisle() {
         return aisle;
