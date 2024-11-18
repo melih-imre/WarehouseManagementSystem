@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.Menubar.Bar;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.tables.test.tabs.AislesTestTab;
+import org.example.warehousemanagementsystem.tables.test.tabs.BrandTestTab;
 import org.example.warehousemanagementsystem.tables.test.tabs.ClientTestTab;
 
 public class TestTables extends Application {
@@ -19,7 +20,8 @@ public class TestTables extends Application {
         TabPane tabPane = new TabPane();
         AislesTestTab aislesTab = new AislesTestTab();
         ClientTestTab clientTestTab = new ClientTestTab();
-        tabPane.getTabs().addAll(aislesTab,clientTestTab);
+        BrandTestTab brandTestTab = new BrandTestTab();
+        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab);
         root.setCenter(tabPane);
 
         Database db = Database.getInstance();
