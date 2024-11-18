@@ -1,9 +1,6 @@
 package org.example.warehousemanagementsystem.item;
 
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.example.warehousemanagementsystem.pojo.Brand;
@@ -24,7 +21,7 @@ public class AddItem extends Tab {
         ClientTable clientTable = new ClientTable();
         LocationTable locationTable = new LocationTable();
         Label brand = new Label("Brand");
-        ComboBox<Brand> comboBrand = new ComboBox<>();
+        TextField comboBrand= new TextField();
         Label category = new Label("Category");
         ComboBox<Category> categoryComboBox=new ComboBox<>();
         Label client = new Label("Client");
@@ -32,7 +29,7 @@ public class AddItem extends Tab {
         Label location = new Label("Location");
         ComboBox<Location> locationComboBox= new ComboBox<>();
 
-        comboBrand.getItems().addAll(brandTable.getAllBrands());
+
         categoryComboBox.getItems().addAll(categoryTable.getAllCategories());
         clientComboBox.getItems().addAll(clientTable.getAllClients());
         locationComboBox.getItems().addAll(locationTable.getAllLocations());
