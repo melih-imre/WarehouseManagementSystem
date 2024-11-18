@@ -15,7 +15,7 @@ public class TransactionTable implements TransactionDAO {
     private static TransactionTable instance;
     Database db = Database.getInstance();
     ArrayList<Transaction> transactions;
-    private TransactionTable(){db = Database.getInstance();}
+    public TransactionTable(){db = Database.getInstance();}
     @Override
     public ArrayList<Transaction> getAllTransactions() {
         String query = "SELECT * FROM " + TABLE_TRANSACTIONS;

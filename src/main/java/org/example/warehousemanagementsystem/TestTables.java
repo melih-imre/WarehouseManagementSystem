@@ -9,6 +9,7 @@ import org.example.warehousemanagementsystem.Menubar.Bar;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.tables.test.tabs.AislesTestTab;
 import org.example.warehousemanagementsystem.tables.test.tabs.ClientTestTab;
+import org.example.warehousemanagementsystem.tabs.ClientsTab;
 
 public class TestTables extends Application {
     @Override
@@ -19,7 +20,10 @@ public class TestTables extends Application {
         TabPane tabPane = new TabPane();
         AislesTestTab aislesTab = new AislesTestTab();
         ClientTestTab clientTestTab = new ClientTestTab();
+
+
         tabPane.getTabs().addAll(aislesTab,clientTestTab);
+
         root.setCenter(tabPane);
 
         Database db = Database.getInstance();
