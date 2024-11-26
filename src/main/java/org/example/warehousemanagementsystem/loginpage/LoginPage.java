@@ -6,7 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import org.example.warehousemanagementsystem.Main;
 import org.example.warehousemanagementsystem.database.Database;
+import org.example.warehousemanagementsystem.gui.scenes.HomeScene;
 
 // Fields
 public class LoginPage extends GridPane {
@@ -29,6 +32,7 @@ public class LoginPage extends GridPane {
 
         loginButton.setOnAction(event -> login());
         cancelButton.setOnAction(event -> cancel());
+
     }
     public GridPane getLoginPane() {
         GridPane gridPane = new GridPane();
@@ -70,6 +74,8 @@ public class LoginPage extends GridPane {
         try {
             Database.getInstance().connect(serverLocation, dbName, username, password);
             System.out.println("Login Successful. Connected to Database!");
+
+            Main.mainStage.setScene(new HomeScene());
         } catch (Exception e) {
             System.out.println("Failed to connect: " + e.getMessage());
         }

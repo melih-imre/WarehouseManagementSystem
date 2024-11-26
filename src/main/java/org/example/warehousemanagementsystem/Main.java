@@ -34,26 +34,26 @@
 package org.example.warehousemanagementsystem;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.database.Database;
-import org.example.warehousemanagementsystem.loginpage.LoginPage;
+import org.example.warehousemanagementsystem.gui.scenes.LoginScene;
 
 public class Main extends Application {
+    public static Stage mainStage;
     @Override
     public void start(Stage stage) {
-        BorderPane root = new BorderPane();
-        LoginPage loginPage = new LoginPage();
-        root.setCenter(loginPage.getLoginPane());
+        mainStage = stage;
 
-        String cssPath = getClass().getResource("/styles.css").toExternalForm();
-        Scene scene = new Scene(root, 1024, 768);
-        scene.getStylesheets().add(cssPath);
+//        String cssPath = getClass().getResource("/styles.css").toExternalForm();
+        mainStage.setScene(new LoginScene());
+//        scene.getStylesheets().add(cssPath);
 
         Database db = Database.getInstance();
-        stage.setTitle("Warehouse Database Management System");
-        stage.setScene(scene);
-        stage.show();
+//        stage.setTitle("Warehouse Database Management System");
+//        stage.setScene(scene);
+//        stage.show();
+        mainStage.setTitle("Warehouse Database Management System");
+        mainStage.show();
     }
 
     public static void main(String[] args) {
