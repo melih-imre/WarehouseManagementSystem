@@ -1,0 +1,69 @@
+package org.example.warehousemanagementsystem.pojo;
+
+public class Transaction extends DatabaseItem{
+    private String sku;
+    private int clientId;
+    private String date;
+    private int quantity;
+    private int productLocationId;
+
+    public Transaction(int id, String sku, int clientId, String date, int quantity, int productLocationId) {
+        super(id);
+        this.sku = sku;
+        this.clientId = clientId;
+        this.date = date;
+        this.quantity = quantity;
+        this.productLocationId = productLocationId;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getProductLocationId() {
+        return productLocationId;
+    }
+
+    public void setProductLocationId(int productLocationId) {
+        this.productLocationId = productLocationId;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "sku='" + sku + '\'' +
+                ", clientId=" + clientId +
+                ", date='" + date + '\'' +
+                ", quantity=" + quantity +
+                ", productLocationId=" + productLocationId +
+                '}';
+    }
+}
