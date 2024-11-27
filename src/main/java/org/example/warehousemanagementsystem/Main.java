@@ -36,6 +36,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.database.Database;
+import org.example.warehousemanagementsystem.gui.scenes.IntroScene;
 import org.example.warehousemanagementsystem.gui.scenes.LoginScene;
 
 public class Main extends Application {
@@ -45,7 +46,7 @@ public class Main extends Application {
         mainStage = stage;
 
 //        String cssPath = getClass().getResource("/styles.css").toExternalForm();
-        mainStage.setScene(new LoginScene());
+        mainStage.setScene(new IntroScene());
 //        scene.getStylesheets().add(cssPath);
 
         Database db = Database.getInstance();
