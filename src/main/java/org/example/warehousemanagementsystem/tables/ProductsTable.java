@@ -4,6 +4,7 @@ import org.example.warehousemanagementsystem.dao.ProductDAO;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.pojo.Product;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,6 +33,7 @@ public class ProductsTable implements ProductDAO {
 
             while (resultSet.next()){
                 products.add(new Product(
+                        resultSet.getInt("id"),
                         resultSet.getInt(COLUMN_SKU),
                         resultSet.getInt(COLUMN_BRAND_ID),
                         resultSet.getString(COLUMN_MODEL),
@@ -55,6 +57,7 @@ public class ProductsTable implements ProductDAO {
             ResultSet data = getProduct.executeQuery(query);
             if (data.next()){
                 Product product = new Product(
+                        data.getInt("id"),
                             data.getInt(COLUMN_SKU),
                             data.getInt(COLUMN_BRAND_ID),
                             data.getString(COLUMN_MODEL),
@@ -66,6 +69,27 @@ public class ProductsTable implements ProductDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean addProduct(Product product) {
+        String query = "INSERT INTO " + TABLE_PRODUCT + " (" +
+                COLUMN_SKU+","+
+                COLUMN_BRAND_ID + ", " +
+                COLUMN_MODEL + ", " +
+                COLUMN_PRICE + ") VALUES (?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = db.getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1,product.getSku());
+            preparedStatement.setInt(1, product.getBrandId());
+            preparedStatement.setString(2, product.getModel());
+            preparedStatement.setInt(3, product.getPrice());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static ProductsTable getInstance(){

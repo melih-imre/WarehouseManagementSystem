@@ -8,10 +8,7 @@ import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.Menubar.Bar;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.tables.CategoryTable;
-import org.example.warehousemanagementsystem.tables.test.tabs.AislesTestTab;
-import org.example.warehousemanagementsystem.tables.test.tabs.BrandTestTab;
-import org.example.warehousemanagementsystem.tables.test.tabs.CategoryTestTab;
-import org.example.warehousemanagementsystem.tables.test.tabs.ClientTestTab;
+import org.example.warehousemanagementsystem.tables.test.tabs.*;
 
 public class TestTables extends Application {
     @Override
@@ -20,11 +17,14 @@ public class TestTables extends Application {
         Bar menu = new Bar(new TabPane());
         root.setTop(menu);
         TabPane tabPane = new TabPane();
+
+
         AislesTestTab aislesTab = new AislesTestTab();
         ClientTestTab clientTestTab = new ClientTestTab();
         BrandTestTab brandTestTab = new BrandTestTab();
         CategoryTestTab categoryTestTab=new CategoryTestTab();
-        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab,categoryTestTab);
+        LocationTestTab locationTestTab=new LocationTestTab();
+        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab,categoryTestTab,locationTestTab);
         root.setCenter(tabPane);
 
         Database db = Database.getInstance();

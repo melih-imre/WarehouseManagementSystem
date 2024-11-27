@@ -57,6 +57,7 @@ public class CategoryTable implements CategoryDAO {
         return null;
     }
 
+
     public static CategoryTable getInstance(){
         if (instance == null) {
             instance = new CategoryTable();

@@ -4,6 +4,7 @@ import org.example.warehousemanagementsystem.dao.BrandDAO;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.pojo.Brand;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -59,6 +60,21 @@ public class BrandTable implements BrandDAO {
         }
         return null;
     }
+    @Override
+    public boolean addBrand(Brand brand) {
+        String query = "INSERT INTO " + TABLE_BRAND + " (" + BRAND_COLUMN_BRAND + ") VALUES (?)";
+        try {
+            PreparedStatement statement = db.getConnection().prepareStatement(query);
+            statement.setString(1, brand.getBrand());
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
     public static BrandTable getInstance(){
         if (instance == null) {

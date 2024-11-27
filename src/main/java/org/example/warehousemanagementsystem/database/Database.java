@@ -47,5 +47,13 @@ public class Database {
 
     //table
 
-    public Connection getConnection() {return connection;}
+    public Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/" + DB_NAME +
+                    "?serverTimezone=UTC", DB_USER, DB_PASS);
+        }
+
+        return connection;}
+
+
 }

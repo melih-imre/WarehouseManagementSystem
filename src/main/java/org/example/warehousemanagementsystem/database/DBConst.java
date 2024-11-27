@@ -95,8 +95,8 @@ public class DBConst {
 
     public static final String CREATE_TABLE_PRODUCTS =
             " CREATE TABLE " + TABLE_PRODUCT + " (" +
-            COLUMN_SKU + " VARCHAR(10) NOT NULL PRIMARY KEY, " +
-            COLUMN_BRAND_ID + " INT(6) NOT NULL, " +
+            COLUMN_SKU + " VARCHAR(10) NOT NULL PRIMARY KEY , " +
+            COLUMN_BRAND_ID + " INT(6) NOT NULL AUTO_INCREMENT, " +
             COLUMN_MODEL + " VARCHAR(50) NOT NULL, " +
             COLUMN_PRICE + " DECIMAL(10, 2)," +
             " FOREIGN KEY (" + COLUMN_BRAND_ID + ")" +
@@ -104,7 +104,7 @@ public class DBConst {
 
     public static final String CREATE_TABLE_BRAND_ID =
             " CREATE TABLE " + TABLE_BRAND + " (" +
-            BRAND_COLUMN_BRAND_ID + " INT(6) NOT NULL PRIMARY KEY, " +
+            BRAND_COLUMN_BRAND_ID + " INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
             BRAND_COLUMN_BRAND + " VARCHAR(255) NOT NULL);";
 
     public static final String CREATE_TABLE_CATEGORIES =
