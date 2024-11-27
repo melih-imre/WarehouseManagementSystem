@@ -11,7 +11,8 @@ import org.example.warehousemanagementsystem.tables.ClientTable;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayAisle;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayClient;
 
-public class ClientTestTab extends Tab {
+public class
+ClientTestTab extends Tab {
     public TableView tableView;
     public ClientTestTab(){
         this.setText("CLIENTS");
