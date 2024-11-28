@@ -106,6 +106,7 @@ public class TransactionTab extends Tab {
 //                        comboQuantity.getValue(),
 //                        comboLocationId.getValue()
 //                );
+
                 int transactionId = Integer.parseInt(transactionIdTextField.getText());
                 String sku = skuTextField.getText();
                 int clientId = Integer.parseInt(clientIdTextField.getText());
