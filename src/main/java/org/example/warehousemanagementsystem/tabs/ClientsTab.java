@@ -20,58 +20,50 @@ public class ClientsTab extends Tab {
 
         // First Name
         Text firstNameLabel = new Text("First Name:");
-        ComboBox<String> comboFirstName = new ComboBox<>();
-        comboFirstName.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getFirstName).toList()
-        ));
+        TextField firstNameTextField = new TextField();
         root.add(firstNameLabel, 0, 0);
-        root.add(comboFirstName, 1, 0);
-
+        root.add(firstNameTextField, 1, 0);
+//
 
         // Last Name
         Text lastNameLabel = new Text("Last Name:");
-        ComboBox<String> comboLastName = new ComboBox<>();
-        comboLastName.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getLastName).toList()
-        ));
+        TextField lastNameTextField = new TextField();
         root.add(lastNameLabel, 0, 1);
-        root.add(comboLastName, 1, 1);
+        root.add(lastNameTextField, 1, 1);
+
 
         // Email
         Text emailLabel = new Text("Email:");
-        ComboBox<String> comboEmail = new ComboBox<>();
-        comboEmail.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getEmail).toList()
-        ));
+        TextField emailTextField = new TextField();
         root.add(emailLabel, 0, 2);
-        root.add(comboEmail, 1, 2);
+        root.add(emailTextField, 1, 2);
+
+//
+
 
         // Phone
         Text phoneLabel = new Text("Phone:");
-        ComboBox<String> comboPhone = new ComboBox<>();
-        comboPhone.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getPhone).toList()
-        ));
+        TextField phoneTextField = new TextField();
         root.add(phoneLabel, 0, 3);
-        root.add(comboPhone, 1, 3);
+        root.add(phoneTextField, 1, 3);
 
+//
         // Street Number
         Text streetNumberLabel = new Text("Street Number:");
-        ComboBox<String> comboStreetNumber = new ComboBox<>();
-        comboStreetNumber.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getStreetNumber).toList()
-        ));
+        TextField streetNumberTextField = new TextField();
         root.add(streetNumberLabel, 0, 4);
-        root.add(comboStreetNumber, 1, 4);
+        root.add(streetNumberTextField, 1, 4);
+
+//
 
         // Street Name
         Text streetNameLabel = new Text("Street Name:");
-        ComboBox<String> comboStreetName = new ComboBox<>();
-        comboStreetName.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getStreetName).toList()
-        ));
+        TextField streetNameTextField = new TextField();
         root.add(streetNameLabel, 0, 5);
-        root.add(comboStreetName, 1, 5);
+        root.add(streetNameTextField, 1, 5);
+
+
+//
 
         // City
         Text cityLabel = new Text("City:");
@@ -98,12 +90,12 @@ public class ClientsTab extends Tab {
             try {
                 Client client = new Client(
                         0, // ID is auto-generated
-                        comboFirstName.getValue(),
-                        comboLastName.getValue(),
-                        comboEmail.getValue(),
-                        comboPhone.getValue(),
-                        comboStreetNumber.getValue(),
-                        comboStreetName.getValue(),
+                        firstNameTextField.getText(),
+                        lastNameTextField.getText(),
+                        emailTextField.getText(),
+                        phoneTextField.getText(),
+                        streetNumberTextField.getText(),
+                        streetNameTextField.getText(),
                         comboCity.getValue(),
                         comboState.getValue()
                 );
@@ -113,6 +105,14 @@ public class ClientsTab extends Tab {
                 successAlert.setHeaderText(null);
                 successAlert.setContentText("Client added successfully!");
                 successAlert.showAndWait();
+
+                firstNameTextField.clear();
+                lastNameTextField.clear();
+                emailTextField.clear();
+                phoneTextField.clear();
+                streetNumberTextField.clear();
+                streetNameTextField.clear();
+
             } catch (Exception ex) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");
@@ -123,13 +123,20 @@ public class ClientsTab extends Tab {
         });
         root.add(submitButton, 0, 8);
 
-        this.setContent(root);
+
+            this.setContent(root);
+        }
+
+        public static ClientsTab getInstance() {
+            if (instance == null) {
+                instance = new ClientsTab();
+            }
+            return instance;
+        }
     }
 
-    public static ClientsTab getInstance() {
-        if (instance == null) {
-            instance = new ClientsTab();
-        }
-        return instance;
-    }
-}
+
+
+
+
+

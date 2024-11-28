@@ -20,70 +20,100 @@ public class TransactionTab extends Tab {
 
         // Transaction ID
         Text transactionIdLabel = new Text("Transaction ID:");
-        ComboBox<Integer> comboTransactionId = new ComboBox<>();
-        comboTransactionId.setItems(FXCollections.observableArrayList(
-                transactionTable.getAllTransactions().stream().map(Transaction::getId).toList()
-        ));
+        TextField transactionIdTextField = new TextField();
         root.add(transactionIdLabel, 0, 0);
-        root.add(comboTransactionId, 1, 0);
+        root.add(transactionIdTextField, 1, 0);
+//        ComboBox<Integer> comboTransactionId = new ComboBox<>();
+//        comboTransactionId.setItems(FXCollections.observableArrayList(
+//                transactionTable.getAllTransactions().stream().map(Transaction::getId).toList()
+//        ));
+//        root.add(transactionIdLabel, 0, 0);
+//        root.add(comboTransactionId, 1, 0);
 
         // SKU
         Text skuLabel = new Text("SKU:");
-        ComboBox<String> comboSku = new ComboBox<>();
-        comboSku.setItems(FXCollections.observableArrayList(
-                transactionTable.getAllTransactions().stream().map(Transaction::getSku).toList()
-        ));
+        TextField skuTextField = new TextField();
         root.add(skuLabel, 0, 1);
-        root.add(comboSku, 1, 1);
+        root.add(skuTextField, 1, 1);
+//        ComboBox<String> comboSku = new ComboBox<>();
+//        comboSku.setItems(FXCollections.observableArrayList(
+//                transactionTable.getAllTransactions().stream().map(Transaction::getSku).toList()
+//        ));
+//        root.add(skuLabel, 0, 1);
+//        root.add(comboSku, 1, 1);
 
         // Client ID
         Text clientIdLabel = new Text("Client ID:");
-        ComboBox<Integer> comboClientId = new ComboBox<>();
-        comboClientId.setItems(FXCollections.observableArrayList(
-                transactionTable.getAllTransactions().stream().map(Transaction::getClientId).toList()
-        ));
+        TextField clientIdTextField = new TextField();
         root.add(clientIdLabel, 0, 2);
-        root.add(comboClientId, 1, 2);
+        root.add(clientIdTextField, 1, 2);
+//        ComboBox<Integer> comboClientId = new ComboBox<>();
+//        comboClientId.setItems(FXCollections.observableArrayList(
+//                transactionTable.getAllTransactions().stream().map(Transaction::getClientId).toList()
+//        ));
+//        root.add(clientIdLabel, 0, 2);
+//        root.add(comboClientId, 1, 2);
 
         // Date
         Text dateLabel = new Text("Date:");
-        ComboBox<String> comboDate = new ComboBox<>();
-        comboDate.setItems(FXCollections.observableArrayList(
-                transactionTable.getAllTransactions().stream().map(Transaction::getDate).toList()
-        ));
+        TextField dateTextField = new TextField();
         root.add(dateLabel, 0, 3);
-        root.add(comboDate, 1, 3);
+        root.add(dateTextField, 1, 3);
+//        ComboBox<String> comboDate = new ComboBox<>();
+//        comboDate.setItems(FXCollections.observableArrayList(
+//                transactionTable.getAllTransactions().stream().map(Transaction::getDate).toList()
+//        ));
+//        root.add(dateLabel, 0, 3);
+//        root.add(comboDate, 1, 3);
 
         // Quantity
         Text quantityLabel = new Text("Quantity:");
-        ComboBox<Integer> comboQuantity = new ComboBox<>();
-        comboQuantity.setItems(FXCollections.observableArrayList(
-                transactionTable.getAllTransactions().stream().map(Transaction::getQuantity).toList()
-        ));
+        TextField quantityTextField = new TextField();
         root.add(quantityLabel, 0, 4);
-        root.add(comboQuantity, 1, 4);
+        root.add(quantityTextField, 1, 4);
+
+//        ComboBox<Integer> comboQuantity = new ComboBox<>();
+//        comboQuantity.setItems(FXCollections.observableArrayList(
+//                transactionTable.getAllTransactions().stream().map(Transaction::getQuantity).toList()
+//        ));
+//        root.add(quantityLabel, 0, 4);
+//        root.add(comboQuantity, 1, 4);
 
         // Product Location ID
         Text locationIdLabel = new Text("Product Location ID:");
-        ComboBox<Integer> comboLocationId = new ComboBox<>();
-        comboLocationId.setItems(FXCollections.observableArrayList(
-                transactionTable.getAllTransactions().stream().map(Transaction::getProductLocationId).toList()
-        ));
+        TextField locationIdTextField = new TextField();
         root.add(locationIdLabel, 0, 5);
-        root.add(comboLocationId, 1, 5);
+        root.add(locationIdTextField, 1, 5);
+
+
+//        ComboBox<Integer> comboLocationId = new ComboBox<>();
+//        comboLocationId.setItems(FXCollections.observableArrayList(
+//                transactionTable.getAllTransactions().stream().map(Transaction::getProductLocationId).toList()
+//        ));
+//        root.add(locationIdLabel, 0, 5);
+//        root.add(comboLocationId, 1, 5);
 
         // Submit Button
         Button submitButton = new Button("Add Transaction");
         submitButton.setOnAction(e -> {
             try {
                 // Create a new transaction based on selected values
+//                Transaction transaction = new Transaction(
+//                        comboTransactionId.getValue(),
+//                        comboSku.getValue(),
+//                        comboClientId.getValue(),
+//                        comboDate.getValue(),
+//                        comboQuantity.getValue(),
+//                        comboLocationId.getValue()
+//                );
+                int transactionId = Integer.parseInt(transactionIdTextField.getText());
+                String sku = skuTextField.getText();
+                int clientId = Integer.parseInt(clientIdTextField.getText());
+                String date = dateTextField.getText();
+                int quantity = Integer.parseInt(quantityTextField.getText());
+                int locationId = Integer.parseInt(String.valueOf(locationIdTextField));
                 Transaction transaction = new Transaction(
-                        comboTransactionId.getValue(),
-                        comboSku.getValue(),
-                        comboClientId.getValue(),
-                        comboDate.getValue(),
-                        comboQuantity.getValue(),
-                        comboLocationId.getValue()
+                        transactionId,sku,clientId,date,quantity,locationId
                 );
 
                 // Simulate adding transaction to the table
@@ -114,3 +144,4 @@ public class TransactionTab extends Tab {
         return instance;
     }
 }
+
