@@ -15,7 +15,11 @@ public class ProductCategoryTable implements ProductCategoryDAO {
     private static ProductCategoryTable instance;
     Database db = Database.getInstance();
     ArrayList<ProductCategory> productCategories;
-    private ProductCategoryTable(){db = Database.getInstance();}
+
+    private ProductCategoryTable() {
+        db = Database.getInstance();
+    }
+
     @Override
     public ArrayList<ProductCategory> getAllProductCategories() {
         String query = "SELECT * FROM " + TABLE_PRODUCT_CATEGORIES;
@@ -25,7 +29,7 @@ public class ProductCategoryTable implements ProductCategoryDAO {
             Statement getProductCategories = db.getConnection().createStatement();
             ResultSet resultSet = getProductCategories.executeQuery(query);
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 productCategories.add(new ProductCategory(
                         resultSet.getInt(PRODUCT_CATEGORY_COLUMN_SKU),
                         resultSet.getInt(PRODUCT_CATEGORY_COLUMN_ID)
@@ -39,12 +43,12 @@ public class ProductCategoryTable implements ProductCategoryDAO {
 
     @Override
     public ProductCategory getProductCategory(int id) {
-        String query = "SELECT * FROM " + TABLE_PRODUCT_CATEGORIES + " WHERE " + PRODUCT_CATEGORY_COLUMN_SKU + " = " +id;
+        String query = "SELECT * FROM " + TABLE_PRODUCT_CATEGORIES + " WHERE " + PRODUCT_CATEGORY_COLUMN_SKU + " = " + id;
 
         try {
             Statement getProductCategory = db.getConnection().createStatement();
             ResultSet data = getProductCategory.executeQuery(query);
-            if (data.next()){
+            if (data.next()) {
                 ProductCategory productCategory = new ProductCategory(
                         data.getInt(PRODUCT_CATEGORY_COLUMN_SKU),
                         data.getInt(PRODUCT_CATEGORY_COLUMN_ID)
@@ -57,10 +61,29 @@ public class ProductCategoryTable implements ProductCategoryDAO {
         return null;
     }
 
-    public static ProductCategoryTable getInstance(){
+    public static ProductCategoryTable getInstance() {
         if (instance == null) {
             instance = new ProductCategoryTable();
         }
         return instance;
+    }
+
+    public int getProductCountByCategoryId(int id) {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS product_count FROM " + TABLE_PRODUCT_CATEGORIES + " WHERE " + PRODUCT_CATEGORY_COLUMN_ID + " = " + id;
+
+        try {
+            Statement getProductCategory = db.getConnection().createStatement();
+            ResultSet data = getProductCategory.executeQuery(query);
+
+            if (data.next()) {
+                count = data.getInt("product_count");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }

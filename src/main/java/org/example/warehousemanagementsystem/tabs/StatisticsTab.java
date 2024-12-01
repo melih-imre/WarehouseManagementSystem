@@ -7,7 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.example.warehousemanagementsystem.pojo.Category;
 import org.example.warehousemanagementsystem.pojo.Product;
+import org.example.warehousemanagementsystem.tables.CategoryTable;
+import org.example.warehousemanagementsystem.tables.ProductCategoryTable;
 import org.example.warehousemanagementsystem.tables.ProductLocationTable;
 import org.example.warehousemanagementsystem.tables.ProductsTable;
 
@@ -23,10 +26,17 @@ public class StatisticsTab extends Tab {
         this.setText("Statistics");
         BorderPane root = new BorderPane();
 
+
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
 
         barChart = new BarChart<String, Number>(xAxis, yAxis);
+        pieChart = new PieChart();
+
+        pieChart.setLabelsVisible(true);
+
+        generateBarChart();
+        root.setCenter(barChart);
 
         barChart.setTitle("Inventory Levels");
         xAxis.setLabel("Product Model");
@@ -35,38 +45,46 @@ public class StatisticsTab extends Tab {
         Button levelsButton =  new Button("Levels");
         levelsButton.setOnAction(e->{
             generateBarChart();
+            root.setCenter(barChart);
         });
-        generateBarChart();
+
+
+        Button categoriesButton = new Button("Categories");
+        categoriesButton.setOnAction(e->{
+            generatePieChart();
+            root.setCenter(pieChart);
+        });
         VBox buttons = new VBox();
-        buttons.getChildren().add(levelsButton);
-        root.setCenter(barChart);
+        buttons.getChildren().addAll(levelsButton, categoriesButton);
+
         root.setLeft(buttons);
         this.setContent(root);
 
     }
 
     public void generatePieChart(){
-        ProductsTable productsTable = ProductsTable.getInstance();
-        ProductLocationTable productLocationTable = ProductLocationTable.getInstance();
+//        ProductsTable productsTable = ProductsTable.getInstance();
+//        ProductLocationTable productLocationTable = ProductLocationTable.getInstance();
+        CategoryTable categoryTable = CategoryTable.getInstance();
+        ProductCategoryTable productCategoryTable = ProductCategoryTable.getInstance();
 
-        ArrayList<Product> products = productsTable.getAllProducts();
+        ArrayList<Category> categories = categoryTable.getAllCategories();
         ArrayList<PieChart.Data> data = new ArrayList<>();
 
-        System.out.println(productsTable.getAllProducts());
-        System.out.println(productLocationTable.getQuantity(1001));
-        for (Product product : products) {
-            int quantity = productLocationTable.getQuantity(product.getId());
-            if (quantity > 0){
-                data.add(new PieChart.Data(product.getModel(), quantity));
+        for (Category category : categories) {
+            int count = productCategoryTable.getProductCountByCategoryId(category.getId());
+            if (count > 0) {
+                data.add(new PieChart.Data(category.getCategory(), count));
             }
         }
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(data);
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(data);
         pieChart.setData(pieChartData);
     }
 
     public void generateBarChart(){
         barChart.getData().clear();
+
         ProductsTable productsTable = ProductsTable.getInstance();
         ProductLocationTable productLocationTable = ProductLocationTable.getInstance();
 
@@ -93,3 +111,5 @@ public class StatisticsTab extends Tab {
         return instance;
     }
 }
+
+
