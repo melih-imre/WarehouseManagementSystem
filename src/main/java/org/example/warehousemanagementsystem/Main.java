@@ -38,6 +38,11 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1024, 768);
 
         Database db = Database.getInstance();
+
+
+
+
+
         stage.setTitle("Warehouse Database Management System");
         stage.setScene(scene);
         stage.show();

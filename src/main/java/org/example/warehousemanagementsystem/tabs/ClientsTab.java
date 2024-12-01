@@ -23,7 +23,6 @@ public class ClientsTab extends Tab {
         TextField firstNameTextField = new TextField();
         root.add(firstNameLabel, 0, 0);
         root.add(firstNameTextField, 1, 0);
-//
 
         // Last Name
         Text lastNameLabel = new Text("Last Name:");
@@ -31,15 +30,11 @@ public class ClientsTab extends Tab {
         root.add(lastNameLabel, 0, 1);
         root.add(lastNameTextField, 1, 1);
 
-
         // Email
         Text emailLabel = new Text("Email:");
         TextField emailTextField = new TextField();
         root.add(emailLabel, 0, 2);
         root.add(emailTextField, 1, 2);
-
-//
-
 
         // Phone
         Text phoneLabel = new Text("Phone:");
@@ -47,14 +42,11 @@ public class ClientsTab extends Tab {
         root.add(phoneLabel, 0, 3);
         root.add(phoneTextField, 1, 3);
 
-//
         // Street Number
         Text streetNumberLabel = new Text("Street Number:");
         TextField streetNumberTextField = new TextField();
         root.add(streetNumberLabel, 0, 4);
         root.add(streetNumberTextField, 1, 4);
-
-//
 
         // Street Name
         Text streetNameLabel = new Text("Street Name:");
@@ -62,14 +54,11 @@ public class ClientsTab extends Tab {
         root.add(streetNameLabel, 0, 5);
         root.add(streetNameTextField, 1, 5);
 
-
-//
-
         // City
         Text cityLabel = new Text("City:");
         ComboBox<String> comboCity = new ComboBox<>();
         comboCity.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getCity).toList()
+                clientTable.getAllClients().stream().map(Client::getCity).distinct().toList()
         ));
         root.add(cityLabel, 0, 6);
         root.add(comboCity, 1, 6);
@@ -78,7 +67,7 @@ public class ClientsTab extends Tab {
         Text stateLabel = new Text("State:");
         ComboBox<String> comboState = new ComboBox<>();
         comboState.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getState).toList()
+                clientTable.getAllClients().stream().map(Client::getState).distinct().toList()
         ));
         root.add(stateLabel, 0, 7);
         root.add(comboState, 1, 7);
@@ -86,10 +75,10 @@ public class ClientsTab extends Tab {
         // Submit Button
         Button submitButton = new Button("Add Client");
         submitButton.setOnAction(e -> {
-            // Create a new client based on selected values
             try {
+                // Create a new client object with the form data
                 Client client = new Client(
-                        0, // ID is auto-generated
+                        0, // ID is auto-generated in the database
                         firstNameTextField.getText(),
                         lastNameTextField.getText(),
                         emailTextField.getText(),
@@ -99,44 +88,46 @@ public class ClientsTab extends Tab {
                         comboCity.getValue(),
                         comboState.getValue()
                 );
-                clientTable.getAllClients().add(client); // Simulate addition
+
+                // Add the client to the database
+                clientTable.createClient(client);
+
+                // Show success alert
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Success");
                 successAlert.setHeaderText(null);
                 successAlert.setContentText("Client added successfully!");
                 successAlert.showAndWait();
 
+                // Clear form fields
                 firstNameTextField.clear();
                 lastNameTextField.clear();
                 emailTextField.clear();
                 phoneTextField.clear();
                 streetNumberTextField.clear();
                 streetNameTextField.clear();
+                comboCity.setValue(null);
+                comboState.setValue(null);
 
             } catch (Exception ex) {
+                // Show error alert if something goes wrong
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");
                 errorAlert.setHeaderText("Failed to Add Client");
                 errorAlert.setContentText("Ensure all fields are filled correctly.");
                 errorAlert.showAndWait();
+                ex.printStackTrace(); // Log the error for debugging
             }
         });
         root.add(submitButton, 0, 8);
 
-
-            this.setContent(root);
-        }
-
-        public static ClientsTab getInstance() {
-            if (instance == null) {
-                instance = new ClientsTab();
-            }
-            return instance;
-        }
+        this.setContent(root);
     }
 
-
-
-
-
-
+    public static ClientsTab getInstance() {
+        if (instance == null) {
+            instance = new ClientsTab();
+        }
+        return instance;
+    }
+}
