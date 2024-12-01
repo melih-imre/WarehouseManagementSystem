@@ -5,7 +5,7 @@ public class DBConst {
     /**
      * PRODUCTS TABLE
      */
-    public static final String TABLE_PRODUCT = "product";
+    public static final String TABLE_PRODUCT = "products";
     public static final String COLUMN_SKU = "sku";
     public static final String COLUMN_BRAND_ID = "brand_id";
     public static final String COLUMN_MODEL = "model";

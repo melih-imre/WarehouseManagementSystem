@@ -68,4 +68,21 @@ public class ProductLocationTable implements ProductLocationDAO {
         }
         return instance;
     }
+
+    public int getQuantity(int id){
+        String query = "SELECT SUM(" + PRODUCT_LOCATION_COLUMN_QUANTITY + ") AS total_quantity " +
+                "FROM " + TABLE_PRODUCT_LOCATIONS +
+                " WHERE " + PRODUCT_LOCATION_COLUMN_SKU + " = '" + id + "'";
+        try {
+            Statement getQuantity = db.getConnection().createStatement();
+            ResultSet resultSet = getQuantity.executeQuery(query);
+            if (resultSet.next()) {
+                return resultSet.getInt("total_quantity");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+
+    }
 }

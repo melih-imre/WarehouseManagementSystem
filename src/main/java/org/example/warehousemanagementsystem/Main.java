@@ -38,17 +38,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.loginpage.LoginPage;
+import org.example.warehousemanagementsystem.tabs.Tabs;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
         BorderPane root = new BorderPane();
-        LoginPage loginPage = new LoginPage();
-        root.setCenter(loginPage.getLoginPane());
-
-        String cssPath = getClass().getResource("/styles.css").toExternalForm();
+        Tabs tabs = Tabs.getInstance();
+        root.setCenter(tabs);
+//        LoginPage loginPage = new LoginPage();
+//        root.setCenter(loginPage.getLoginPane());
+//
+//        String cssPath = getClass().getResource("/styles.css").toExternalForm();
         Scene scene = new Scene(root, 1024, 768);
-        scene.getStylesheets().add(cssPath);
+//        scene.getStylesheets().add(cssPath);
 
         Database db = Database.getInstance();
         stage.setTitle("Warehouse Database Management System");
