@@ -71,4 +71,28 @@ public class TransactionTable implements TransactionDAO {
         }
         return instance;
     }
+    public void createTransaction(Transaction transaction) {
+        String query = "INSERT INTO " + TABLE_TRANSACTIONS + " (" +
+                TRANSACTIONS_COLUMN_ID + ", " +
+                TRANSACTIONS_COLUMN_SKU + ", " +
+                TRANSACTIONS_COLUMN_CLIENT + ", " +
+                TRANSACTIONS_COLUMN_DATE + ", " +
+                TRANSACTIONS_COLUMN_PRODUCT_LOCATION_ID + ", " +
+                TRANSACTIONS_COLUMN_QUANTITY + ") VALUES (" +
+                transaction.getId() + ", '" +
+                transaction.getSku() + "', " +
+                transaction.getClientId() + ", '" +
+                transaction.getDate() + "', " +
+                transaction.getProductLocationId() + ", " +
+                transaction.getQuantity() + ")";
+
+        try {
+            db.getConnection().createStatement().executeUpdate(query);
+            System.out.println("Transaction created successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+

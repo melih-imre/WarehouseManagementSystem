@@ -32,16 +32,9 @@ public class Main extends Application {
         root.setCenter(tabPane);
 
 
-
-
-
         Scene scene = new Scene(root, 1024, 768);
 
         Database db = Database.getInstance();
-
-
-
-
 
         stage.setTitle("Warehouse Database Management System");
         stage.setScene(scene);
@@ -52,3 +45,4 @@ public class Main extends Application {
         launch();
     }
 }
+
