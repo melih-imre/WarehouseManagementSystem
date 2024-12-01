@@ -212,4 +212,5 @@ public class ClientTable implements ClientDAO {
     public void updateClient(Client client) {
         // Implementation for updating client information
     }
+
 }

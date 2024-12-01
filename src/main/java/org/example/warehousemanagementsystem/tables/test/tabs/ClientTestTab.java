@@ -60,6 +60,7 @@ public class ClientTestTab extends Tab {
         tableView.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8, column9);
         tableView.getItems().addAll(clientTable.getAllClients());
 
+
         root.setCenter(tableView);
         this.setContent(root);
     }
