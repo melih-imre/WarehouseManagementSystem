@@ -9,10 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.example.warehousemanagementsystem.pojo.Category;
 import org.example.warehousemanagementsystem.pojo.Product;
-import org.example.warehousemanagementsystem.tables.CategoryTable;
-import org.example.warehousemanagementsystem.tables.ProductCategoryTable;
-import org.example.warehousemanagementsystem.tables.ProductLocationTable;
-import org.example.warehousemanagementsystem.tables.ProductsTable;
+import org.example.warehousemanagementsystem.tables.*;
 
 import java.util.ArrayList;
 
@@ -20,27 +17,30 @@ public class StatisticsTab extends Tab {
     private static StatisticsTab instance;
     private BarChart<String, Number> barChart;
     private PieChart pieChart;
+    private BarChart<String, Number> topSellingBarChart;
 
 
     private StatisticsTab(){
         this.setText("Statistics");
         BorderPane root = new BorderPane();
-
-
         CategoryAxis xAxis = new CategoryAxis();
+        CategoryAxis xTopAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
+        NumberAxis yTopAxis = new NumberAxis();
 
-        barChart = new BarChart<String, Number>(xAxis, yAxis);
+
+        barChart = new BarChart<>(xAxis, yAxis);
         pieChart = new PieChart();
+        topSellingBarChart = new BarChart<>(xTopAxis, yTopAxis);
 
         pieChart.setLabelsVisible(true);
 
+        barChart.setTitle("Inventory Levels");
+        pieChart.setTitle("Category Distribution");
+        topSellingBarChart.setTitle("Top Selling Models");
+
         generateBarChart();
         root.setCenter(barChart);
-
-        barChart.setTitle("Inventory Levels");
-        xAxis.setLabel("Product Model");
-        yAxis.setLabel("Quantity");
 
         Button levelsButton =  new Button("Levels");
         levelsButton.setOnAction(e->{
@@ -54,8 +54,14 @@ public class StatisticsTab extends Tab {
             generatePieChart();
             root.setCenter(pieChart);
         });
+
+        Button topSelling = new Button("Top Selling Models");
+        topSelling.setOnAction(e->{
+            generateTopSellingProductsChart();
+            root.setCenter(topSellingBarChart);
+        });
         VBox buttons = new VBox();
-        buttons.getChildren().addAll(levelsButton, categoriesButton);
+        buttons.getChildren().addAll(levelsButton, categoriesButton, topSelling);
 
         root.setLeft(buttons);
         this.setContent(root);
@@ -63,8 +69,6 @@ public class StatisticsTab extends Tab {
     }
 
     public void generatePieChart(){
-//        ProductsTable productsTable = ProductsTable.getInstance();
-//        ProductLocationTable productLocationTable = ProductLocationTable.getInstance();
         CategoryTable categoryTable = CategoryTable.getInstance();
         ProductCategoryTable productCategoryTable = ProductCategoryTable.getInstance();
 
@@ -99,9 +103,25 @@ public class StatisticsTab extends Tab {
                 series.getData().add(new XYChart.Data<>(product.getModel(), quantity));
             }
         }
-
         barChart.getData().add(series);
+    }
 
+    public void generateTopSellingProductsChart() {
+        topSellingBarChart.getData().clear();
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Top 10 Selling Products");
+
+        TransactionTable transactionsTable = TransactionTable.getInstance();
+        ArrayList<Object[]> topSellingProducts = transactionsTable.getTopSellingProducts();
+
+        for (Object[] entry : topSellingProducts) {
+            Product product = (Product) entry[0];
+            int totalSold = (int) entry[1];
+
+            series.getData().add(new XYChart.Data<>(product.getModel(), totalSold));
+        }
+        topSellingBarChart.getData().add(series);
     }
 
     public static StatisticsTab getInstance() {
