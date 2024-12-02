@@ -2,13 +2,17 @@ package org.example.warehousemanagementsystem.tables.test.tabs;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import org.example.warehousemanagementsystem.pojo.Brand;
 import org.example.warehousemanagementsystem.pojo.Category;
 import org.example.warehousemanagementsystem.tables.BrandTable;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayBrand;
+import org.example.warehousemanagementsystem.tasks.DeleteBrandTask;
 import org.example.warehousemanagementsystem.tasks.DeleteTask;
+
+import java.util.ArrayList;
 
 public class BrandTestTab extends Tab {
     public TableView<DisplayBrand> tableView;
@@ -19,6 +23,8 @@ public class BrandTestTab extends Tab {
         BrandTable brandTable = BrandTable.getInstance();
         TextField deleteId = new TextField();
         deleteId.setPromptText("Enter the record to delete");
+
+
         tableView = new TableView<>();
         TableColumn<DisplayBrand,Integer> column1 = new TableColumn<>("Brand Id");
         column1.setCellValueFactory(e->new SimpleIntegerProperty(e.getValue().getBrandId()).asObject());
@@ -34,8 +40,8 @@ public class BrandTestTab extends Tab {
                     int brandId = Integer.parseInt(id);
                     Brand brandToDelete = BrandTable.getInstance().getBrand(brandId);
                     if(brandToDelete!=null){
-                        DeleteTask deleteTask = new DeleteTask(brandId);
-                        if(deleteTask.execute()){
+                        DeleteBrandTask deleteBrandTask = new DeleteBrandTask(brandId);
+                        if(deleteBrandTask.execute()){
 
                             tableView.getItems().removeIf(brand -> brand.getBrandId() == brandId);
                             deleteId.clear();

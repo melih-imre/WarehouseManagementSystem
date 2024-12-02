@@ -2,12 +2,20 @@ package org.example.warehousemanagementsystem.tables.test.tabs;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.example.warehousemanagementsystem.pojo.Brand;
+import org.example.warehousemanagementsystem.pojo.Product;
+import org.example.warehousemanagementsystem.tables.BrandTable;
 import org.example.warehousemanagementsystem.tables.ProductsTable;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayProduct;
+import org.example.warehousemanagementsystem.tasks.DeleteBrandTask;
+import org.example.warehousemanagementsystem.tasks.DeleteProductTask;
 import org.example.warehousemanagementsystem.tasks.ProductInsert;
+
+import java.util.ArrayList;
 
 public class ProductTestTab extends Tab {
 
@@ -24,6 +32,16 @@ public class ProductTestTab extends Tab {
         model.setPromptText("Enter the model");
         TextField price = new TextField();
         price.setPromptText("Enter the price");
+        ComboBox<String> brandComboBox = new ComboBox<>();
+        brandComboBox.setPromptText("Select Brand");
+        ArrayList<Brand> brands = BrandTable.getInstance().getAllBrands();
+        ArrayList<String> brandNames = new ArrayList<>();
+        for(Brand brand:brands){
+            brandNames.add(brand.getBrand());
+        }
+        brandComboBox.setItems(FXCollections.observableArrayList(brandNames));
+        TextField deleteId = new TextField();
+        deleteId.setPromptText("Enter the item to delete");
 
         ProductsTable productsTable = ProductsTable.getInstance();
         tableView = new TableView<>();
@@ -52,24 +70,24 @@ public class ProductTestTab extends Tab {
         Button insertButton = new Button("Insert");
         insertButton.setOnAction(e->{
             try{
-            String skuName = sku.getText();
-            String brandName = brandfield.getText();
-            String modelName = model.getText();
-            String priceValue = price.getText();
-            ProductInsert productInsert = new ProductInsert(Integer.parseInt(skuName),Integer.parseInt(brandName),modelName,Integer.parseInt(priceValue));
-            productInsert.run();
+                String skuName = sku.getText();
+                String brandName = brandfield.getText();
+                String modelName = model.getText();
+                String priceValue = price.getText();
+                ProductInsert productInsert = new ProductInsert(Integer.parseInt(skuName),Integer.parseInt(brandName),modelName,Integer.parseInt(priceValue));
+                productInsert.run();
 
-            sku.clear();
-            model.clear();
-            price.clear();
+                sku.clear();
+                model.clear();
+                price.clear();
 
-            tableView.getItems().clear();
-            tableView.getItems().addAll(productsTable.getAllProducts().stream().map(product ->
-                    new DisplayProduct(
-                            product.getSku(),
-                            product.getBrandId(),
-                            product.getModel(),
-                            product.getPrice())).toList());
+                tableView.getItems().clear();
+                tableView.getItems().addAll(productsTable.getAllProducts().stream().map(product ->
+                        new DisplayProduct(
+                                product.getSku(),
+                                product.getBrandId(),
+                                product.getModel(),
+                                product.getPrice())).toList());
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Success");
                 successAlert.setContentText("Category Insert Successfully");
@@ -77,13 +95,13 @@ public class ProductTestTab extends Tab {
 
 
             } catch (NumberFormatException ex) {
-                // Handle invalid number input
+
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Invalid Input");
                 errorAlert.setContentText("SKU and Price must be valid integers.");
                 errorAlert.show();
             } catch (Exception ex) {
-                // Handle other exceptions
+
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");
                 errorAlert.setContentText("Failed to insert product. Please try again.");
@@ -91,7 +109,54 @@ public class ProductTestTab extends Tab {
                 ex.printStackTrace();
             }
         });
-        ToolBar toolBar = new ToolBar(sku,brandfield, model,price,insertButton);
+        Button deleteButton = new Button("Delete");
+        deleteButton.setOnAction(e->{
+            try {
+                String delete = deleteId.getText();
+                if(!delete.isEmpty()){
+                    int brandId = Integer.parseInt(delete);
+                    Product brandToDelete = ProductsTable.getInstance().getProduct(brandId);
+                    if(brandToDelete!=null){
+                        DeleteProductTask deleteProductTask = new DeleteProductTask(brandId);
+                        if(deleteProductTask.execute()){
+
+                            tableView.getItems().removeIf(product -> product.getSku() == brandId);
+                            deleteId.clear();
+
+                            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                            successAlert.setTitle("Success");
+                            successAlert.setContentText("Sucessfully Deleted");
+                            successAlert.show();
+                        }
+
+                    } else {
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setTitle("Error");
+                        errorAlert.setContentText("Brand not found");
+                        errorAlert.show();
+                    }
+                }else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setContentText("Please enter a valid Brand Id");
+                    errorAlert.show();
+                }
+
+            }catch (NumberFormatException ex){
+                throw new RuntimeException(ex.getMessage());
+            }
+
+        });
+
+
+
+
+        ToolBar toolBar = new ToolBar(sku,brandfield, model,price,brandComboBox,insertButton);
+        BorderPane pane = new BorderPane();
+        pane.setRight(deleteId);
+        pane.setTop(deleteButton);
+
+        root.setBottom(pane);
         root.setRight(toolBar);
         root.setCenter(tableView);
         this.setContent(root);

@@ -27,7 +27,7 @@ public class ProductInsert implements Runnable{
                     DBConst.COLUMN_BRAND_ID+", "+
                     DBConst.COLUMN_MODEL+", "+
                     DBConst.COLUMN_PRICE+") VALUES ("+
-                    sku+", "+brandId+", '"+model+"', "+price+");";
+                    sku+", "+brandId+", '"+model+"', "+price+")";
             Statement statement =connection.createStatement();
             int rowsInsert = statement.executeUpdate(insertQuery);
             if(rowsInsert>0){
