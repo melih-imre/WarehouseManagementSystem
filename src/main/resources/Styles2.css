@@ -1,0 +1,38 @@
+
+.transaction-tab-root {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: bold;
+    text-fill: #333;
+}
+
+.text-field {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.text-field:focused {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px #4CAF50;
+}

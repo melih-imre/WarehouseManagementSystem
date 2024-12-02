@@ -9,29 +9,34 @@ import org.example.warehousemanagementsystem.Main;
 
 public class Bar extends MenuBar {
     public Bar(BorderPane root, Main mainApp) {
+        this.getStyleClass().add("menu-bar");
+
         Menu fileMenu = new Menu("File");
+        fileMenu.getStyleClass().add("menu");
         MenuItem exitMenuItem = new MenuItem("Exit");
+        exitMenuItem.getStyleClass().add("menu-item");
         exitMenuItem.setOnAction(e -> System.exit(0));
         fileMenu.getItems().add(exitMenuItem);
 
         Menu viewMenu = new Menu("View");
+        viewMenu.getStyleClass().add("menu");
         MenuItem clientsMenuItem = new MenuItem("Clients");
+        clientsMenuItem.getStyleClass().add("menu-item");
         MenuItem transactionsMenuItem = new MenuItem("Transactions");
+        transactionsMenuItem.getStyleClass().add("menu-item");
         MenuItem creditsMenuItem = new MenuItem("Credits");
+        creditsMenuItem.getStyleClass().add("menu-item");
 
-        // Handle "Clients" menu item click
         clientsMenuItem.setOnAction(e -> {
-            root.setCenter(mainApp.getTabPane()); // Restore TabPane
-            mainApp.showTab(0); // Show the Clients Tab (index 0)
+            root.setCenter(mainApp.getTabPane());
+            mainApp.showTab(0);
         });
 
-        // Handle "Transactions" menu item click
         transactionsMenuItem.setOnAction(e -> {
-            root.setCenter(mainApp.getTabPane()); // Restore TabPane
-            mainApp.showTab(1); // Show the Transactions Tab (index 1)
+            root.setCenter(mainApp.getTabPane());
+            mainApp.showTab(1);
         });
 
-        // Handle "Credits" menu item click
         creditsMenuItem.setOnAction(e -> {
             Text creditsText = new Text("Developer Information:\n\n" +
                     "Melih:\n" +
@@ -48,6 +53,7 @@ public class Bar extends MenuBar {
                     "Contact: sai@example.com\n\n" +
                     "Version: 1.0.0\n" +
                     "Date: December 2024");
+            creditsText.getStyleClass().add("credits-text");
             root.setCenter(creditsText);
         });
 
