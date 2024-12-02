@@ -18,7 +18,6 @@ public class TestTables extends Application {
         root.setTop(menu);
         TabPane tabPane = new TabPane();
 
-
         AislesTestTab aislesTab = new AislesTestTab();
         ClientTestTab clientTestTab = new ClientTestTab();
         BrandTestTab brandTestTab = new BrandTestTab();
