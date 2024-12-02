@@ -94,5 +94,32 @@ public class TransactionTable implements TransactionDAO {
         }
     }
 
-}
+    public void deleteTransaction(int id) {
+        String query = "DELETE FROM " + TABLE_TRANSACTIONS + " WHERE " + TRANSACTIONS_COLUMN_ID + " = " + id;
 
+        try{
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Transaction deleted successfully");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateTransaction(Transaction transaction) {
+        String query = "UPDATE " + TABLE_TRANSACTIONS + " SET " +
+                TRANSACTIONS_COLUMN_SKU + " = '" + transaction.getSku() + "', " +
+                TRANSACTIONS_COLUMN_CLIENT + " = " + transaction.getClientId() + ", " +
+                TRANSACTIONS_COLUMN_DATE + " = '" + transaction.getDate() + "', " +
+                TRANSACTIONS_COLUMN_QUANTITY + " = " + transaction.getQuantity() + ", " +
+                TRANSACTIONS_COLUMN_PRODUCT_LOCATION_ID + " = " + transaction.getProductLocationId() + " " +
+                "WHERE " + TRANSACTIONS_COLUMN_ID + " = " + transaction.getId();
+
+        try {
+            db.getConnection().createStatement().executeUpdate(query);
+            System.out.println("Transaction updated successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

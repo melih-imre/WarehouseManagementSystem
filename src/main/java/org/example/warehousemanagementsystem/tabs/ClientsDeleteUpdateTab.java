@@ -12,8 +12,6 @@ import javafx.scene.text.Text;
 import org.example.warehousemanagementsystem.pojo.Client;
 import org.example.warehousemanagementsystem.tables.ClientTable;
 
-import java.util.ArrayList;
-
 public class ClientsDeleteUpdateTab extends Tab {
     private static ClientsDeleteUpdateTab instance;
     private TableView<Client> tableView;
@@ -25,15 +23,12 @@ public class ClientsDeleteUpdateTab extends Tab {
         BorderPane root = new BorderPane();
         tableView = new TableView<>();
 
-        // First Name Column
         TableColumn<Client, String> firstNameColumn = new TableColumn<>("First Name");
         firstNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getFirstName()));
 
-        // Last Name Column
         TableColumn<Client, String> lastNameColumn = new TableColumn<>("Last Name");
         lastNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getLastName()));
 
-        // Email Column
         TableColumn<Client, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEmail()));
 
@@ -86,19 +81,16 @@ public class ClientsDeleteUpdateTab extends Tab {
 
             ClientTable clientTable = ClientTable.getInstance();
 
-            // First Name
             Text firstNameLabel = new Text("First Name:");
             TextField firstNameField = new TextField(client.getFirstName());
             this.add(firstNameLabel, 0, 0);
             this.add(firstNameField, 1, 0);
 
-            // Last Name
             Text lastNameLabel = new Text("Last Name:");
             TextField lastNameField = new TextField(client.getLastName());
             this.add(lastNameLabel, 0, 1);
             this.add(lastNameField, 1, 1);
 
-            // Email
             Text emailLabel = new Text("Email:");
             TextField emailField = new TextField(client.getEmail());
             this.add(emailLabel, 0, 2);

@@ -114,10 +114,33 @@ public class ClientTable implements ClientDAO {
 
 
     public void deleteClient(int id) {
+        String query = "DELETE FROM " + TABLE_CLIENTS + " WHERE " + COLUMN_CLIENT_ID + " = " + id;
         // Implementation for deleting a client by ID
+        try {
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Client deleted successfully");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateClient(Client client) {
-        // Implementation for updating client information
+        String query = "UPDATE " + TABLE_CLIENTS + " SET " +
+                COLUMN_FIRST_NAME + " = '" + client.getFirstName() + "', " +
+                COLUMN_LAST_NAME + " = '" + client.getLastName() + "', " +
+                COLUMN_EMAIL + " = '" + client.getEmail() + "', " +
+                COLUMN_PHONE + " = '" + client.getPhone() + "', " +
+                COLUMN_STREET_NUMBER + " = '" + client.getStreetNumber() + "', " +
+                COLUMN_STREET_NAME + " = '" + client.getStreetName() + "', " +
+                COLUMN_CITY + " = '" + client.getCity() + "', " +
+                COLUMN_STATE + " = '" + client.getState() + "' " +
+                "WHERE " + COLUMN_CLIENT_ID + " = " + client.getId();
+
+        try {
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Client updated successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
