@@ -33,7 +33,6 @@ public class ProductsTable implements ProductDAO {
 
             while (resultSet.next()){
                 products.add(new Product(
-                        resultSet.getInt("id"),
                         resultSet.getInt(COLUMN_SKU),
                         resultSet.getInt(COLUMN_BRAND_ID),
                         resultSet.getString(COLUMN_MODEL),
@@ -57,7 +56,6 @@ public class ProductsTable implements ProductDAO {
             ResultSet data = getProduct.executeQuery(query);
             if (data.next()){
                 Product product = new Product(
-                        data.getInt("id"),
                             data.getInt(COLUMN_SKU),
                             data.getInt(COLUMN_BRAND_ID),
                             data.getString(COLUMN_MODEL),

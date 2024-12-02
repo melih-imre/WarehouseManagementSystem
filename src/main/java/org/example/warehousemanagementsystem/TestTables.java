@@ -24,7 +24,8 @@ public class TestTables extends Application {
         BrandTestTab brandTestTab = new BrandTestTab();
         CategoryTestTab categoryTestTab=new CategoryTestTab();
         LocationTestTab locationTestTab=new LocationTestTab();
-        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab,categoryTestTab);
+        ProductTestTab productTestTab = new ProductTestTab();
+        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab,categoryTestTab,productTestTab);
         root.setCenter(tabPane);
 
         Database db = Database.getInstance();

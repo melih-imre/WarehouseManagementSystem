@@ -1,17 +1,16 @@
-package org.example.warehousemanagementsystem.pojo;
+package org.example.warehousemanagementsystem.tables.test.displayItems;
 
-public class Product extends DatabaseItem{
+public class DisplayProduct {
+    private int sku;
     private int brandId;
     private String model;
-    private int sku;
     private int price;
 
-    public Product(int sku, int brandId, String model, int price) {
-
+    public DisplayProduct(int sku, int brandId, String model, int price) {
+        this.sku = sku;
         this.brandId = brandId;
         this.model = model;
         this.price = price;
-        this.sku = sku;
     }
 
     public int getSku() {
@@ -44,15 +43,5 @@ public class Product extends DatabaseItem{
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "Sku= "+sku+
-                "brandId=" + brandId +
-                ", model='" + model + '\'' +
-                ", price=" + price +
-                '}';
     }
 }
