@@ -2,6 +2,7 @@ package org.example.warehousemanagementsystem.tables;
 
 import org.example.warehousemanagementsystem.dao.TransactionDAO;
 import org.example.warehousemanagementsystem.database.Database;
+import org.example.warehousemanagementsystem.pojo.Product;
 import org.example.warehousemanagementsystem.pojo.Transaction;
 
 import java.sql.ResultSet;
@@ -63,6 +64,36 @@ public class TransactionTable implements TransactionDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<Object[]> getTopSellingProducts() {
+        ArrayList<Object[]> topSellingProducts = new ArrayList<>();
+
+        String query = "SELECT p." + COLUMN_SKU + ", p." + COLUMN_BRAND_ID + ", p." + COLUMN_MODEL + ", p." + COLUMN_PRICE + ", SUM(t." + TRANSACTIONS_COLUMN_QUANTITY + ") AS total_sold " +
+            "FROM " + TABLE_TRANSACTIONS + " t " +
+            "JOIN " + TABLE_PRODUCT + " p ON t." + TRANSACTIONS_COLUMN_SKU + " = p." + COLUMN_SKU +
+            " GROUP BY p." + COLUMN_SKU + ", p." + COLUMN_BRAND_ID + ", p." + COLUMN_MODEL + ", p." + COLUMN_PRICE +
+            " ORDER BY total_sold DESC LIMIT 10";
+
+        try  {
+            Statement getTransaction = db.getConnection().createStatement();
+            ResultSet data = getTransaction.executeQuery(query);
+
+            while (data.next()) {
+                int sku = data.getInt("sku");
+                int brandId = data.getInt("brand_id");
+                String model = data.getString("model");
+                int price = data.getInt("price");
+                int totalSold = data.getInt("total_sold");
+
+                Product product = new Product(sku, brandId, model, price);
+                topSellingProducts.add(new Object[]{product, totalSold});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return topSellingProducts;
     }
 
     public static TransactionTable getInstance(){
