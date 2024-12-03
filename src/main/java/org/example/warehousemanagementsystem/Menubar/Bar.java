@@ -27,15 +27,15 @@ public class Bar extends MenuBar {
         MenuItem creditsMenuItem = new MenuItem("Credits");
         creditsMenuItem.getStyleClass().add("menu-item");
 
-        clientsMenuItem.setOnAction(e -> {
-            root.setCenter(mainApp.getTabPane());
-            mainApp.showTab(0);
-        });
-
-        transactionsMenuItem.setOnAction(e -> {
-            root.setCenter(mainApp.getTabPane());
-            mainApp.showTab(1);
-        });
+//        clientsMenuItem.setOnAction(e -> {
+//            root.setCenter(mainApp.getTabPane());
+//            mainApp.showTab(0);
+//        });
+//
+//        transactionsMenuItem.setOnAction(e -> {
+//            root.setCenter(mainApp.getTabPane());
+//            mainApp.showTab(1);
+//        });
 
         creditsMenuItem.setOnAction(e -> {
             Text creditsText = new Text("Developer Information:\n\n" +
