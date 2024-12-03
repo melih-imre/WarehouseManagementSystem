@@ -10,12 +10,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import static org.example.warehousemanagementsystem.database.DBConst.*;
+/**
+ * Handles database operations related to the "ProductLocation" table.
+ * Implements the ProductLocationDAO interface for standard data access methods.
+ * This class follows the Singleton design pattern.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-03
+ */
 
 public class ProductLocationTable implements ProductLocationDAO {
     private static ProductLocationTable instance;
     Database db = Database.getInstance();
     ArrayList<ProductLocation> productLocations;
     private ProductLocationTable(){db = Database.getInstance();}
+
+    /**
+     * Retrieves all product locations from the database.
+     *
+     * @return An ArrayList of ProductLocation objects representing all locations in the database.
+     */
+
     @Override
     public ArrayList<ProductLocation> getAllProductLocations() {
         String query = "SELECT * FROM " + TABLE_PRODUCT_LOCATIONS;
@@ -40,6 +56,12 @@ public class ProductLocationTable implements ProductLocationDAO {
         return productLocations;
     }
 
+    /**
+     * Retrieves a specific product location by its ID.
+     *
+     * @param id The ID of the product location to retrieve.
+     * @return A ProductLocation object, or null if not found.
+     */
     @Override
     public ProductLocation getProductLocation(int id) {
         String query = "SELECT * FROM " + TABLE_PRODUCT_LOCATIONS + " WHERE " + PRODUCT_LOCATION_ID + " = " +id;
@@ -69,6 +91,12 @@ public class ProductLocationTable implements ProductLocationDAO {
         return instance;
     }
 
+    /**
+     * Retrieves the total quantity of a product at a specific location.
+     *
+     * @param id The ID of the product location.
+     * @return The total quantity at the specified location.
+     */
     public int getQuantity(int id){
         String query = "SELECT SUM(" + PRODUCT_LOCATION_COLUMN_QUANTITY + ") AS total_quantity " +
                 "FROM " + TABLE_PRODUCT_LOCATIONS +
@@ -86,6 +114,12 @@ public class ProductLocationTable implements ProductLocationDAO {
 
     }
 
+    /**
+     * Updates the quantity of a product at a specific location.
+     *
+     * @param id The ID of the product location.
+     * @param quantity The amount to decrease the current quantity by.
+     */
     public void updateQuantity(int id, int quantity){
         int updatedQuantity = getQuantity(id) - quantity;
         String query = "UPDATE " + TABLE_PRODUCT_LOCATIONS +
@@ -101,6 +135,12 @@ public class ProductLocationTable implements ProductLocationDAO {
         }
     }
 
+    /**
+     * Retrieves the location ID of a product by its SKU.
+     *
+     * @param sku The SKU of the product.
+     * @return The location ID, or -42 if not found.
+     */
     public int getLocationIdBySku(int sku) {
         String query = "SELECT " + PRODUCT_LOCATION_ID + " FROM " + TABLE_PRODUCT_LOCATIONS + " WHERE " + PRODUCT_LOCATION_COLUMN_SKU + " = " +sku;
 

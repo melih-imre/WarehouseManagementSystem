@@ -1,5 +1,13 @@
 package org.example.warehousemanagementsystem.pojo;
 
+/**
+ * Represents a transaction in the warehouse management system.
+ * This class extends DatabaseItem to include an ID for database purposes.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class Transaction extends DatabaseItem{
     private int sku;
     private int clientId;

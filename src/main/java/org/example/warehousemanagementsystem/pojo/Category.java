@@ -1,5 +1,14 @@
 package org.example.warehousemanagementsystem.pojo;
 
+/**
+ * Represents a category in the warehouse management system.
+ * This class extends {@link DatabaseItem} and contains the category's name.
+ * The category can be identified by its ID and its name.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class Category extends DatabaseItem{
     private String category;
 

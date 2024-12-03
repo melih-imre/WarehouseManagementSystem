@@ -14,6 +14,17 @@ import org.example.warehousemanagementsystem.tables.*;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the "Statistics" tab in the Warehouse Management System.
+ * This tab displays various charts related to inventory levels, category distribution,
+ * and top-selling models. It provides buttons to switch between different chart views.
+ *
+ * This class follows the Singleton design pattern.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-30
+ */
 public class StatisticsTab extends Tab {
     private static StatisticsTab instance;
     private BarChart<String, Number> barChart;
@@ -75,6 +86,10 @@ public class StatisticsTab extends Tab {
 
     }
 
+    /**
+     * Generates and displays the pie chart showing category distribution.
+     * Fetches data from the database and updates the chart.
+     */
     public void generatePieChart(){
         CategoryTable categoryTable = CategoryTable.getInstance();
         ProductCategoryTable productCategoryTable = ProductCategoryTable.getInstance();
@@ -93,6 +108,10 @@ public class StatisticsTab extends Tab {
         pieChart.setData(pieChartData);
     }
 
+    /**
+     * Generates and displays the bar chart showing inventory levels.
+     * Fetches data from the database and updates the chart.
+     */
     public void generateBarChart(){
         barChart.getData().clear();
 
@@ -115,6 +134,10 @@ public class StatisticsTab extends Tab {
         barChart.getData().add(series);
     }
 
+    /**
+     * Generates and displays the bar chart showing the top-selling products.
+     * Fetches data from the database and updates the chart.
+     */
     public void generateTopSellingProductsChart() {
         topSellingBarChart.getData().clear();
 

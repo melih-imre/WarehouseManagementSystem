@@ -1,5 +1,14 @@
 package org.example.warehousemanagementsystem.pojo;
 
+/**
+ * Represents a client in the warehouse management system.
+ * This class extends {@link DatabaseItem} and contains the client's personal and address information.
+ * The client can be identified by their ID and their contact details.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class Client extends DatabaseItem{
     private String firstName;
     private String lastName;

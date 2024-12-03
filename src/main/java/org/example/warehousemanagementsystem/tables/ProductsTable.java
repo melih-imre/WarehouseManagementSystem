@@ -11,6 +11,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import static org.example.warehousemanagementsystem.database.DBConst.*;
+/**
+ * Handles database operations related to the "Product" table.
+ * Implements the ProductDAO interface to define standard operations for products.
+ * This class follows the Singleton design pattern.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-16
+ */
 
 public class ProductsTable implements ProductDAO {
     private static ProductsTable instance;
@@ -22,6 +31,11 @@ public class ProductsTable implements ProductDAO {
     }
 
 
+    /**
+     * Retrieves all products from the database.
+     *
+     * @return An ArrayList of Product objects containing all products in the database.
+     */
     @Override
     public ArrayList<Product> getAllProducts() {
         String query = "SELECT * FROM " + TABLE_PRODUCT;
@@ -47,7 +61,12 @@ public class ProductsTable implements ProductDAO {
     }
 
 
-
+    /**
+     * Retrieves a specific product from the database by SKU (ID).
+     *
+     * @param id The SKU of the product to retrieve.
+     * @return A Product object representing the requested product, or null if not found.
+     */
     @Override
     public Product getProduct(int id) {
         String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " + COLUMN_SKU + " = " +id;
