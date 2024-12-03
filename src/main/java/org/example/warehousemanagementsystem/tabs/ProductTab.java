@@ -3,8 +3,9 @@ package org.example.warehousemanagementsystem.tabs;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.example.warehousemanagementsystem.pojo.Brand;
@@ -26,30 +27,55 @@ public class ProductTab extends Tab {
         this.setClosable(false);
         BorderPane root = new BorderPane();
 
+        // Title Label
         Label titleLabel = new Label("Manage Products");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleLabel.setStyle("-fx-text-fill: #2c3e50; -fx-padding: 10px;");
         root.setTop(titleLabel);
 
+        // Product Insert Form
+        GridPane formGrid = createProductForm();
+
+        // Table View to display products
+        ProductsTable productsTable = ProductsTable.getInstance();
+        tableView = new TableView<>();
+        setupTableView(productsTable);
+
+        // Insert Button
+        Button insertButton = createInsertButton();
+
+        // Delete Product Section
+        TextField deleteId = new TextField();
+        deleteId.setPromptText("Enter the SKU to delete");
+        deleteId.setStyle("-fx-border-color: #e74c3c; -fx-border-radius: 5px; -fx-padding: 5px;");
+
+        Button deleteButton = createDeleteButton(deleteId);
+
+        HBox buttonBar = new HBox(10, insertButton, deleteButton);
+        buttonBar.setStyle("-fx-spacing: 10px; -fx-padding: 10px; -fx-alignment: center;");
+
+        VBox rightPane = new VBox(10, formGrid, buttonBar);
+        rightPane.setStyle("-fx-padding: 15px;");
+        rightPane.setPrefWidth(350);
+
+        root.setLeft(rightPane);
+        root.setCenter(tableView);
+
+        this.setContent(root);
+    }
+
+    private GridPane createProductForm() {
         TextField sku = new TextField();
         sku.setPromptText("Enter the SKU");
-        sku.setStyle("-fx-border-color: #3498db; -fx-border-radius: 5px; -fx-padding: 5px;");
-
         TextField brandfield = new TextField();
         brandfield.setPromptText("Enter the brandId");
-        brandfield.setStyle("-fx-border-color: #3498db; -fx-border-radius: 5px; -fx-padding: 5px;");
-
         TextField model = new TextField();
         model.setPromptText("Enter the model");
-        model.setStyle("-fx-border-color: #3498db; -fx-border-radius: 5px; -fx-padding: 5px;");
-
         TextField price = new TextField();
         price.setPromptText("Enter the price");
-        price.setStyle("-fx-border-color: #3498db; -fx-border-radius: 5px; -fx-padding: 5px;");
 
         ComboBox<String> brandComboBox = new ComboBox<>();
         brandComboBox.setPromptText("Select Brand");
-        brandComboBox.setStyle("-fx-border-color: #3498db; -fx-border-radius: 5px;");
         ArrayList<Brand> brands = BrandTable.getInstance().getAllBrands();
         ArrayList<String> brandNames = new ArrayList<>();
         for (Brand brand : brands) {
@@ -57,17 +83,30 @@ public class ProductTab extends Tab {
         }
         brandComboBox.setItems(FXCollections.observableArrayList(brandNames));
 
-        TextField deleteId = new TextField();
-        deleteId.setPromptText("Enter the item to delete");
-        deleteId.setStyle("-fx-border-color: #e74c3c; -fx-border-radius: 5px; -fx-padding: 5px;");
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(10));
 
-        ProductsTable productsTable = ProductsTable.getInstance();
-        tableView = new TableView<>();
+        grid.add(new Label("SKU:"), 0, 0);
+        grid.add(sku, 1, 0);
+        grid.add(new Label("Brand ID:"), 0, 1);
+        grid.add(brandfield, 1, 1);
+        grid.add(new Label("Model:"), 0, 2);
+        grid.add(model, 1, 2);
+        grid.add(new Label("Price:"), 0, 3);
+        grid.add(price, 1, 3);
+        grid.add(new Label("Brand:"), 0, 4);
+        grid.add(brandComboBox, 1, 4);
 
+        return grid;
+    }
+
+    private void setupTableView(ProductsTable productsTable) {
         TableColumn<DisplayProduct, Integer> column1 = new TableColumn<>("SKU");
         column1.setCellValueFactory(e -> new SimpleIntegerProperty(e.getValue().getSku()).asObject());
 
-        TableColumn<DisplayProduct, Integer> column2 = new TableColumn<>("BrandId");
+        TableColumn<DisplayProduct, Integer> column2 = new TableColumn<>("Brand ID");
         column2.setCellValueFactory(e -> new SimpleIntegerProperty(e.getValue().getBrandId()).asObject());
 
         TableColumn<DisplayProduct, String> column3 = new TableColumn<>("Model");
@@ -84,92 +123,27 @@ public class ProductTab extends Tab {
                         product.getModel(),
                         product.getPrice())).toList());
         tableView.setStyle("-fx-padding: 10px; -fx-background-color: #ecf0f1;");
+    }
 
+    private Button createInsertButton() {
         Button insertButton = new Button("Insert");
         insertButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5px; -fx-padding: 5px;");
         insertButton.setOnAction(e -> {
             try {
-                String skuName = sku.getText();
-                String brandName = brandfield.getText();
-                String modelName = model.getText();
-                String priceValue = price.getText();
-                ProductInsert productInsert = new ProductInsert(Integer.parseInt(skuName), Integer.parseInt(brandName), modelName, Integer.parseInt(priceValue));
-                productInsert.run();
-
-                sku.clear();
-                model.clear();
-                price.clear();
-
-                tableView.getItems().clear();
-                tableView.getItems().addAll(productsTable.getAllProducts().stream().map(product ->
-                        new DisplayProduct(
-                                product.getSku(),
-                                product.getBrandId(),
-                                product.getModel(),
-                                product.getPrice())).toList());
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success");
-                successAlert.setContentText("Product inserted successfully.");
-                successAlert.show();
-            } catch (NumberFormatException ex) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Invalid Input");
-                errorAlert.setContentText("SKU and Price must be valid integers.");
-                errorAlert.show();
             } catch (Exception ex) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setContentText("Failed to insert product. Please try again.");
-                errorAlert.show();
-                ex.printStackTrace();
             }
         });
+        return insertButton;
+    }
 
+    private Button createDeleteButton(TextField deleteId) {
         Button deleteButton = new Button("Delete");
         deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5px; -fx-padding: 5px;");
         deleteButton.setOnAction(e -> {
             try {
-                String delete = deleteId.getText();
-                if (!delete.isEmpty()) {
-                    int brandId = Integer.parseInt(delete);
-                    Product brandToDelete = ProductsTable.getInstance().getProduct(brandId);
-                    if (brandToDelete != null) {
-                        DeleteProductTask deleteProductTask = new DeleteProductTask(brandId);
-                        if (deleteProductTask.execute()) {
-                            tableView.getItems().removeIf(product -> product.getSku() == brandId);
-                            deleteId.clear();
-
-                            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                            successAlert.setTitle("Success");
-                            successAlert.setContentText("Successfully deleted.");
-                            successAlert.show();
-                        }
-                    } else {
-                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setTitle("Error");
-                        errorAlert.setContentText("Product not found.");
-                        errorAlert.show();
-                    }
-                } else {
-                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setTitle("Error");
-                    errorAlert.setContentText("Please enter a valid SKU.");
-                    errorAlert.show();
-                }
-            } catch (NumberFormatException ex) {
-                throw new RuntimeException(ex.getMessage());
+            } catch (Exception ex) {
             }
         });
-
-        ToolBar toolBar = new ToolBar(sku, brandfield, model, price, brandComboBox, insertButton);
-        toolBar.setStyle("-fx-background-color: #bdc3c7; -fx-padding: 10px;");
-        BorderPane pane = new BorderPane();
-        pane.setRight(deleteId);
-        pane.setTop(deleteButton);
-
-        root.setBottom(pane);
-        root.setRight(toolBar);
-        root.setCenter(tableView);
-        this.setContent(root);
+        return deleteButton;
     }
 }
