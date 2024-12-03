@@ -11,6 +11,8 @@ import org.example.warehousemanagementsystem.Main;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.gui.scenes.HomeScene;
 
+import java.io.IOException;
+
 // Fields
 public class LoginPage extends GridPane {
 //    private TextField serverLocationField;
@@ -22,11 +24,14 @@ public class LoginPage extends GridPane {
 
 
 //Buttons
-    public LoginPage() {
+    public LoginPage() throws IOException {
         dbNameField = new TextField();
+        dbNameField.setText(Manager.getDbName());
 //        serverLocationField = new TextField();
         usernameField = new TextField();
+        usernameField.setText(Manager.getUsername());
         passwordField = new PasswordField();
+        passwordField.setText(Manager.getPassword());
         loginButton = new Button("Login");
         cancelButton = new Button("Cancel");
 
@@ -76,6 +81,7 @@ public class LoginPage extends GridPane {
             System.out.println("Login Successful. Connected to Database!");
 
 //            Database db = Database.getInstance();
+            Manager.info(serverLocation, dbName, username, password);
 
             Main.mainStage.setScene(new HomeScene());
         } catch (Exception e) {
