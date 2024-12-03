@@ -3,7 +3,7 @@ module org.example.warehousemanagementsystem {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
-    requires kotlin.stdlib;
+    requires mysql.connector.j;
 
 
     opens org.example.warehousemanagementsystem to javafx.fxml;
