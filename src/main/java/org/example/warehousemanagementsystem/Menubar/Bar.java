@@ -74,16 +74,16 @@ public class Bar extends MenuBar {
             Text creditsText = new Text("Developer Information:\n\n" +
                     "Melih:\n" +
                     "Role: Backend Developer\n" +
-                    "Contact: melih@example.com\n\n" +
+                    "Contact: melih@gmail.com\n\n" +
                     "Anandhu:\n" +
                     "Role: Backend Developer\n" +
-                    "Contact: melih@example.com\n\n" +
+                    "Contact: Anandhu@gmail.com\n\n" +
                     "Numan:\n" +
                     "Role: Frontend Developer\n" +
-                    "Contact: numan@example.com\n\n" +
+                    "Contact: numan@gmail.com\n\n" +
                     "Sai:\n" +
                     "Role: Database Administrator\n" +
-                    "Contact: sai@example.com\n\n" +
+                    "Contact: sai@gmail.com\n\n" +
                     "Version: 1.0.0\n" +
                     "Date: December 2024");
 
@@ -91,12 +91,11 @@ public class Bar extends MenuBar {
             creditsText.setFont(Font.font("Arial", FontWeight.BOLD, 18));
             creditsText.setFill(Color.WHITE);
             creditsText.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 8, 0.7, 2, 2);");
-            creditsText.setOpacity(0);  // Start with invisible text
+            creditsText.setOpacity(0);
 
-            // Add a cool gradient background to the center of the screen
+            // Added a cool gradient background to the center of the screen
             root.setStyle("-fx-background-color: linear-gradient(to top, #5baafd, #bdc3c7);");
 
-            // Add Text to the center of the root
             root.setCenter(creditsText);
 
             // Fade In Animation for the credits text
@@ -107,8 +106,8 @@ public class Bar extends MenuBar {
 
             // Create TranslateTransition for moving creditsText
             TranslateTransition translateText = new TranslateTransition(Duration.seconds(10), creditsText);
-            translateText.setFromY(0);  // Start position
-            translateText.setToY(700);    // End position
+            translateText.setFromY(0);
+            translateText.setToY(700);
 
             // Play the translation effect after fade-in completes
             fadeText.setOnFinished(event -> translateText.play());
