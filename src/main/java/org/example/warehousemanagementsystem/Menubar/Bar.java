@@ -5,10 +5,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import org.example.warehousemanagementsystem.Main;
+import org.example.warehousemanagementsystem.gui.panes.HomePane;
+import org.example.warehousemanagementsystem.gui.panes.TabsPane;
+import org.example.warehousemanagementsystem.tabs.Tabs;
 
 public class Bar extends MenuBar {
-    public Bar(BorderPane root, Main mainApp) {
+    public Bar(BorderPane root, HomePane mainApp) {
         this.getStyleClass().add("menu-bar");
 
         Menu fileMenu = new Menu("File");
@@ -26,21 +28,44 @@ public class Bar extends MenuBar {
         transactionsMenuItem.getStyleClass().add("menu-item");
         MenuItem creditsMenuItem = new MenuItem("Credits");
         creditsMenuItem.getStyleClass().add("menu-item");
+        MenuItem productsMenuItem = new MenuItem("Products");
+        productsMenuItem.getStyleClass().add("menu-item");
+        MenuItem categoriesMenuItem = new MenuItem("Categories");
+        productsMenuItem.getStyleClass().add("menu-item");
+        MenuItem statisticsMenuItem = new MenuItem("Statistics");
+        productsMenuItem.getStyleClass().add("menu-item");
 
-//        clientsMenuItem.setOnAction(e -> {
-//            root.setCenter(mainApp.getTabPane());
-//            mainApp.showTab(0);
-//        });
-//
-//        transactionsMenuItem.setOnAction(e -> {
-//            root.setCenter(mainApp.getTabPane());
-//            mainApp.showTab(1);
-//        });
+        Tabs tabs = Tabs.getInstance();
+
+        clientsMenuItem.setOnAction(e -> {
+            root.setCenter(tabs);
+            tabs.getSelectionModel().select(1);
+        });
+
+        transactionsMenuItem.setOnAction(e -> {
+            root.setCenter(tabs);
+            tabs.getSelectionModel().select(3);
+        });
+
+        productsMenuItem.setOnAction(e -> {
+            root.setCenter(tabs);
+            tabs.getSelectionModel().select(0);
+        });
+
+        categoriesMenuItem.setOnAction(e -> {
+            root.setCenter(tabs);
+            tabs.getSelectionModel().select(5);
+        });
+
+        statisticsMenuItem.setOnAction(e -> {
+            root.setCenter(tabs);
+            tabs.getSelectionModel().select(7);
+        });
 
         creditsMenuItem.setOnAction(e -> {
             Text creditsText = new Text("Developer Information:\n\n" +
                     "Melih:\n" +
-                    "Role: Lead Developer\n" +
+                    "Role: Backend Developer\n" +
                     "Contact: melih@example.com\n\n" +
                     "Anandhu:\n" +
                     "Role: Backend Developer\n" +
@@ -57,7 +82,7 @@ public class Bar extends MenuBar {
             root.setCenter(creditsText);
         });
 
-        viewMenu.getItems().addAll(clientsMenuItem, transactionsMenuItem, creditsMenuItem);
+        viewMenu.getItems().addAll(productsMenuItem, clientsMenuItem, transactionsMenuItem, categoriesMenuItem, statisticsMenuItem, creditsMenuItem);
 
         this.getMenus().addAll(fileMenu, viewMenu);
     }

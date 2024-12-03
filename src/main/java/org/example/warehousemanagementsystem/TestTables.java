@@ -5,10 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.example.warehousemanagementsystem.Menubar.Bar;
 import org.example.warehousemanagementsystem.database.Database;
-import org.example.warehousemanagementsystem.tables.CategoryTable;
 import org.example.warehousemanagementsystem.tables.test.tabs.*;
+import org.example.warehousemanagementsystem.tabs.BrandTab;
+import org.example.warehousemanagementsystem.tabs.CategoryTab;
+import org.example.warehousemanagementsystem.tabs.ProductTab;
 
 public class TestTables extends Application {
     @Override
@@ -20,10 +21,10 @@ public class TestTables extends Application {
 
         AislesTestTab aislesTab = new AislesTestTab();
         ClientTestTab clientTestTab = new ClientTestTab();
-        BrandTestTab brandTestTab = new BrandTestTab();
-        CategoryTestTab categoryTestTab=new CategoryTestTab();
-        ProductTestTab productTestTab = new ProductTestTab();
-        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab,categoryTestTab,productTestTab);
+        BrandTab brandTab = new BrandTab();
+        CategoryTab categoryTab =new CategoryTab();
+        ProductTab productTab = new ProductTab();
+        tabPane.getTabs().addAll(aislesTab,clientTestTab, brandTab, categoryTab, productTab);
         root.setCenter(tabPane);
 
         Database db = Database.getInstance();

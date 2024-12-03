@@ -11,6 +11,7 @@ public class TransactionTab extends Tab {
 
     public TransactionTab() {
         this.setText("Transactions");
+        this.setClosable(false);
         GridPane root = new GridPane();
         root.setVgap(10);
         root.setHgap(10);
@@ -81,6 +82,7 @@ public class TransactionTab extends Tab {
                 successAlert.setHeaderText(null);
                 successAlert.setContentText("Transaction added successfully!");
                 successAlert.showAndWait();
+                StatisticsTab.getInstance().generateTopSellingProductsChart();
             } catch (Exception ex) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");

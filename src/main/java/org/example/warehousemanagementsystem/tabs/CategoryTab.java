@@ -1,6 +1,5 @@
-package org.example.warehousemanagementsystem.tables.test.tabs;
+package org.example.warehousemanagementsystem.tabs;
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.*;
@@ -11,11 +10,12 @@ import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayCat
 import org.example.warehousemanagementsystem.tasks.CategoryInsert;
 import org.example.warehousemanagementsystem.tasks.DeleteTask;
 
-public class CategoryTestTab extends Tab {
+public class CategoryTab extends Tab {
     public TableView <DisplayCategory> tableView;
 
-    public CategoryTestTab(){
+    public CategoryTab(){
         this.setText("Categories");
+        this.setClosable(false);
         BorderPane root = new BorderPane();
         TextField deleteId = new TextField();
         TextField insert = new TextField();

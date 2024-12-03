@@ -1,28 +1,27 @@
-package org.example.warehousemanagementsystem.tables.test.tabs;
+package org.example.warehousemanagementsystem.tabs;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import org.example.warehousemanagementsystem.pojo.Brand;
 import org.example.warehousemanagementsystem.pojo.Product;
 import org.example.warehousemanagementsystem.tables.BrandTable;
 import org.example.warehousemanagementsystem.tables.ProductsTable;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayProduct;
-import org.example.warehousemanagementsystem.tasks.DeleteBrandTask;
 import org.example.warehousemanagementsystem.tasks.DeleteProductTask;
 import org.example.warehousemanagementsystem.tasks.ProductInsert;
 
 import java.util.ArrayList;
 
-public class ProductTestTab extends Tab {
+public class ProductTab extends Tab {
 
     public TableView <DisplayProduct> tableView;
 
-    public ProductTestTab(){
+    public ProductTab(){
         this.setText("Product Tab");
+        this.setClosable(false);
         BorderPane root = new BorderPane();
         TextField sku = new TextField();
         sku.setPromptText("Enter the SKU");
@@ -92,6 +91,7 @@ public class ProductTestTab extends Tab {
                 successAlert.setTitle("Success");
                 successAlert.setContentText("Category Insert Successfully");
                 successAlert.show();
+                StatisticsTab.getInstance().generateBarChart();
 
 
             } catch (NumberFormatException ex) {

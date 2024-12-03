@@ -18,6 +18,7 @@ public class ClientsDeleteUpdateTab extends Tab {
 
     public ClientsDeleteUpdateTab() {
         this.setText("Manage Clients");
+        this.setClosable(false);
         ClientTable clientTable = ClientTable.getInstance();
 
         BorderPane root = new BorderPane();

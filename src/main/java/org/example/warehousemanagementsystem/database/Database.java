@@ -6,6 +6,7 @@ import java.sql.*;
 import static org.example.warehousemanagementsystem.database.Const.*;
 
 public class Database {
+
     private static Database instance;
     private Connection connection;
 

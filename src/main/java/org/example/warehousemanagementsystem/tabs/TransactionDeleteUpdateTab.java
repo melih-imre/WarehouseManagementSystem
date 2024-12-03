@@ -18,6 +18,7 @@ public class TransactionDeleteUpdateTab extends Tab {
 
     public TransactionDeleteUpdateTab() {
         this.setText("Manage Transactions");
+        this.setClosable(false);
         TransactionTable transactionTable = TransactionTable.getInstance();
 
         BorderPane root = new BorderPane();

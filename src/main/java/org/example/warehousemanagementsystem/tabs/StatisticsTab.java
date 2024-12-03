@@ -23,6 +23,7 @@ public class StatisticsTab extends Tab {
 
     private StatisticsTab(){
         this.setText("Statistics");
+        this.setClosable(false);
         BorderPane root = new BorderPane();
         CategoryAxis xAxis = new CategoryAxis();
         CategoryAxis xTopAxis = new CategoryAxis();
@@ -40,10 +41,11 @@ public class StatisticsTab extends Tab {
         pieChart.setTitle("Category Distribution");
         topSellingBarChart.setTitle("Top Selling Models");
 
-        generateBarChart();
-        root.setCenter(barChart);
+        generateTopSellingProductsChart();
+        root.setCenter(topSellingBarChart);
 
         Button levelsButton =  new Button("Levels");
+        levelsButton.setPrefWidth(150);
         levelsButton.setOnAction(e->{
             generateBarChart();
             root.setCenter(barChart);
@@ -51,12 +53,14 @@ public class StatisticsTab extends Tab {
 
 
         Button categoriesButton = new Button("Categories");
+        categoriesButton.setPrefWidth(150);
         categoriesButton.setOnAction(e->{
             generatePieChart();
             root.setCenter(pieChart);
         });
 
         Button topSelling = new Button("Top Selling Models");
+        topSelling.setPrefWidth(150);
         topSelling.setOnAction(e->{
             generateTopSellingProductsChart();
             root.setCenter(topSellingBarChart);

@@ -14,6 +14,7 @@ public class ClientsTab extends Tab {
 
     public ClientsTab() {
         this.setText("Clients");
+        this.setClosable(false);
         GridPane root = new GridPane();
         root.setVgap(10);
         root.setHgap(10);

@@ -95,7 +95,7 @@ public class DBConst {
 
     public static final String CREATE_TABLE_PRODUCTS =
             " CREATE TABLE " + TABLE_PRODUCT + " (" +
-            COLUMN_SKU + " VARCHAR(10) NOT NULL PRIMARY KEY , " +
+            COLUMN_SKU + " INT NOT NULL PRIMARY KEY , " +
             COLUMN_BRAND_ID + " INT(6) NOT NULL AUTO_INCREMENT, " +
             COLUMN_MODEL + " VARCHAR(50) NOT NULL, " +
             COLUMN_PRICE + " DECIMAL(10, 2)," +
@@ -114,7 +114,7 @@ public class DBConst {
 
     public static final String CREATE_TABLE_PRODUCT_CATEGORY =
             "CREATE TABLE " + TABLE_PRODUCT_CATEGORIES + " (" +
-                    PRODUCT_CATEGORY_COLUMN_SKU + " VARCHAR(10) NOT NULL, " +
+                    PRODUCT_CATEGORY_COLUMN_SKU + " INT NOT NULL, " +
                     PRODUCT_CATEGORY_COLUMN_ID + " INT NOT NULL, " +
                     "PRIMARY KEY (" + PRODUCT_CATEGORY_COLUMN_SKU + ", " + PRODUCT_CATEGORY_COLUMN_ID + "), " +
                     "FOREIGN KEY (" + PRODUCT_CATEGORY_COLUMN_SKU + ")" +
@@ -158,7 +158,7 @@ public class DBConst {
     public static final String CREATE_TABLE_PRODUCT_LOCATIONS =
             " CREATE TABLE " + TABLE_PRODUCT_LOCATIONS + " ( " +
             PRODUCT_LOCATION_ID + " INT(6) NOT NULL PRIMARKY KEY, " +
-            PRODUCT_LOCATION_COLUMN_SKU + " VARCHAR(10) NOT NULL, " +
+            PRODUCT_LOCATION_COLUMN_SKU + " INT NOT NULL, " +
             PRODUCT_LOCATION_COLUMN_AISLE_ID + " INT(6) NOT NULL, " +
             PRODUCT_LOCATION_COLUMN_SHELF_ID + " INT(6) NOT NULL, " +
             PRODUCT_LOCATION_COLUMN_QUANTITY + " INT(6) NOT NULL, " +
@@ -172,7 +172,7 @@ public class DBConst {
     public static final String CREATE_TABLE_TRANSACTIONS =
             " CREATE TABLE " + TABLE_TRANSACTIONS + " ( " +
             TRANSACTIONS_COLUMN_ID + " INT(6) NOT NULL PRIMARY KEY, " +
-            TRANSACTIONS_COLUMN_SKU + " VARCHAR(10) NOT NULL, " +
+            TRANSACTIONS_COLUMN_SKU + " INT NOT NULL, " +
             TRANSACTIONS_COLUMN_CLIENT + " INT NOT NULL," +
             TRANSACTIONS_COLUMN_DATE + " DATE NOT NULL, " +
             TRANSACTIONS_COLUMN_QUANTITY + " INT NOT NULL, " +

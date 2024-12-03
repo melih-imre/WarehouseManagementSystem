@@ -1,24 +1,20 @@
-package org.example.warehousemanagementsystem.tables.test.tabs;
+package org.example.warehousemanagementsystem.tabs;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import org.example.warehousemanagementsystem.pojo.Brand;
-import org.example.warehousemanagementsystem.pojo.Category;
 import org.example.warehousemanagementsystem.tables.BrandTable;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayBrand;
 import org.example.warehousemanagementsystem.tasks.DeleteBrandTask;
-import org.example.warehousemanagementsystem.tasks.DeleteTask;
 
-import java.util.ArrayList;
-
-public class BrandTestTab extends Tab {
+public class BrandTab extends Tab {
     public TableView<DisplayBrand> tableView;
 
-    public BrandTestTab(){
+    public BrandTab(){
         this.setText("Brands");
+        this.setClosable(false);
         BorderPane pane = new BorderPane();
         BrandTable brandTable = BrandTable.getInstance();
         TextField deleteId = new TextField();

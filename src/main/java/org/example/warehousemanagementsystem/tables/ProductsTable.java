@@ -39,6 +39,7 @@ public class ProductsTable implements ProductDAO {
                         resultSet.getInt(COLUMN_PRICE)
                 ));
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
