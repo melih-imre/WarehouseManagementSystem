@@ -28,7 +28,7 @@ public class TransactionTable implements TransactionDAO {
             while (resultSet.next()){
                 transactions.add(new Transaction(
                         resultSet.getInt(TRANSACTIONS_COLUMN_ID),
-                        resultSet.getString(TRANSACTIONS_COLUMN_SKU),
+                        resultSet.getInt(TRANSACTIONS_COLUMN_SKU),
                         resultSet.getInt(TRANSACTIONS_COLUMN_CLIENT),
                         resultSet.getString(TRANSACTIONS_COLUMN_DATE),
                         resultSet.getInt(TRANSACTIONS_COLUMN_QUANTITY),
@@ -51,7 +51,7 @@ public class TransactionTable implements TransactionDAO {
             if (data.next()){
                 Transaction transaction = new Transaction(
                         data.getInt(TRANSACTIONS_COLUMN_ID),
-                        data.getString(TRANSACTIONS_COLUMN_SKU),
+                        data.getInt(TRANSACTIONS_COLUMN_SKU),
                         data.getInt(TRANSACTIONS_COLUMN_CLIENT),
                         data.getString(TRANSACTIONS_COLUMN_DATE),
                         data.getInt(TRANSACTIONS_COLUMN_QUANTITY),

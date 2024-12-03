@@ -103,6 +103,8 @@ public class ClientsTab extends Tab {
                 );
 
                 clientTable.createClient(client);
+                ClientsDeleteUpdateTab clientsDeleteUpdateTab = ClientsDeleteUpdateTab.getInstance();
+                clientsDeleteUpdateTab.refreshTable();
 
                 firstNameTextField.clear();
                 lastNameTextField.clear();
@@ -114,6 +116,7 @@ public class ClientsTab extends Tab {
                 comboState.setValue(null);
 
                 System.out.println("Client added successfully.");
+
 
             } catch (Exception ex) {
                 System.out.println("An error occurred while adding the client.");

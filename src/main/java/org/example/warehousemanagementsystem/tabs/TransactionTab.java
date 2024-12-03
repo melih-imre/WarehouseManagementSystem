@@ -18,13 +18,6 @@ public class TransactionTab extends Tab {
 
         TransactionTable transactionTable = TransactionTable.getInstance();
 
-        // Transaction ID
-        Text transactionIdLabel = new Text("Transaction ID:");
-        TextField transactionIdTextField = new TextField();
-        root.add(transactionIdLabel, 0, 0);
-        root.add(transactionIdTextField, 1, 0);
-//
-
         // SKU
         Text skuLabel = new Text("SKU:");
         TextField skuTextField = new TextField();
@@ -69,20 +62,19 @@ public class TransactionTab extends Tab {
             try {
 
 
-                int transactionId = Integer.parseInt(transactionIdTextField.getText());
-                String sku = skuTextField.getText();
+                int transactionId = 0;
+                int sku = Integer.parseInt(skuTextField.getText());
                 int clientId = Integer.parseInt(clientIdTextField.getText());
                 String date = dateTextField.getText();
                 int quantity = Integer.parseInt(quantityTextField.getText());
-                int locationId = Integer.parseInt(String.valueOf(locationIdTextField));
+                int locationId = Integer.parseInt(locationIdTextField.getText());
                 Transaction transaction = new Transaction(
                         transactionId,sku,clientId,date,quantity,locationId
                 );
 
-                // Simulate adding transaction to the table
-                //tableransactionTable.getAllTransactions().add(transaction);
 
                 transactionTable.createTransaction(transaction);
+                TransactionDeleteUpdateTab.getInstance().refreshTable();
 
 
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -96,6 +88,7 @@ public class TransactionTab extends Tab {
                 errorAlert.setHeaderText("Failed to Add Transaction");
                 errorAlert.setContentText("Ensure all fields are filled correctly.");
                 errorAlert.showAndWait();
+                ex.printStackTrace();
             }
         });
         root.add(submitButton, 0, 6);

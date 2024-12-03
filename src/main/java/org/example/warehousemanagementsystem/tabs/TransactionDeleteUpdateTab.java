@@ -27,7 +27,7 @@ public class TransactionDeleteUpdateTab extends Tab {
         idColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getId())));
 
         TableColumn<Transaction, String> skuColumn = new TableColumn<>("SKU");
-        skuColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSku()));
+        skuColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getSku())));
 
         TableColumn<Transaction, String> clientIdColumn = new TableColumn<>("Client ID");
         clientIdColumn.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getClientId())));
@@ -91,7 +91,7 @@ public class TransactionDeleteUpdateTab extends Tab {
             TransactionTable transactionTable = TransactionTable.getInstance();
 
             Text skuLabel = new Text("SKU:");
-            TextField skuField = new TextField(transaction.getSku());
+            TextField skuField = new TextField(String.valueOf(transaction.getSku()));
             this.add(skuLabel, 0, 0);
             this.add(skuField, 1, 0);
 
@@ -117,7 +117,7 @@ public class TransactionDeleteUpdateTab extends Tab {
 
             Button updateButton = new Button("Update Transaction");
             updateButton.setOnAction(e -> {
-                transaction.setSku(skuField.getText());
+                transaction.setSku(Integer.parseInt(skuField.getText()));
                 transaction.setClientId(Integer.parseInt(clientIdField.getText()));
                 transaction.setDate(dateField.getText());
                 transaction.setQuantity(Integer.parseInt(quantityField.getText()));
