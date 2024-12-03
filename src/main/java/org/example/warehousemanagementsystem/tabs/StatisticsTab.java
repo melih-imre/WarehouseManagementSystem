@@ -2,6 +2,7 @@ package org.example.warehousemanagementsystem.tabs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -61,6 +62,8 @@ public class StatisticsTab extends Tab {
             root.setCenter(topSellingBarChart);
         });
         VBox buttons = new VBox();
+        buttons.setSpacing(10);
+        buttons.setPadding(new Insets(15,0,0,5));
         buttons.getChildren().addAll(levelsButton, categoriesButton, topSelling);
 
         root.setLeft(buttons);
