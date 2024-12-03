@@ -129,19 +129,20 @@ public class StatisticsTab extends Tab {
      * Fetches data from the database and updates the chart.
      */
     public void generateBarChart(){
-
         barChart.getData().clear();
 
-        ProductsTable productsTable = ProductsTable.getInstance();
+
         ProductLocationTable productLocationTable = ProductLocationTable.getInstance();
 
-        ArrayList<Product> products = productsTable.getAllProducts();
+        ArrayList<Product> products = ProductsTable.getInstance().getAllProducts();
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Inventory Levels");
 
         for (Product product : products) {
-            int quantity = productLocationTable.getQuantity(product.getId());
+            System.out.println(product.getSku());
+            System.out.println(productLocationTable.getLocationIdBySku(product.getSku()));
+            int quantity = productLocationTable.getQuantity(productLocationTable.getLocationIdBySku(product.getSku()));
             if (quantity > 0) {
                 series.getData().add(new XYChart.Data<>(product.getModel(), quantity));
             }
