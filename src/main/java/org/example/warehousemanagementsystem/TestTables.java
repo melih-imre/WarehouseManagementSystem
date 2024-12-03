@@ -7,19 +7,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.Menubar.Bar;
 import org.example.warehousemanagementsystem.database.Database;
-import org.example.warehousemanagementsystem.tables.test.tabs.AislesTestTab;
-import org.example.warehousemanagementsystem.tables.test.tabs.ClientTestTab;
+import org.example.warehousemanagementsystem.tables.CategoryTable;
+import org.example.warehousemanagementsystem.tables.test.tabs.*;
 
 public class TestTables extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = new BorderPane();
-        Bar menu = new Bar();
-        root.setTop(menu);
+//        Bar menu = new Bar(new TabPane());
+//        root.setTop(menu);
         TabPane tabPane = new TabPane();
+
         AislesTestTab aislesTab = new AislesTestTab();
         ClientTestTab clientTestTab = new ClientTestTab();
-        tabPane.getTabs().addAll(aislesTab,clientTestTab);
+        BrandTestTab brandTestTab = new BrandTestTab();
+        CategoryTestTab categoryTestTab=new CategoryTestTab();
+        ProductTestTab productTestTab = new ProductTestTab();
+        tabPane.getTabs().addAll(aislesTab,clientTestTab,brandTestTab,categoryTestTab,productTestTab);
         root.setCenter(tabPane);
 
         Database db = Database.getInstance();
@@ -27,6 +31,7 @@ public class TestTables extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         Application.launch();

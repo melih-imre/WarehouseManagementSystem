@@ -1,12 +1,12 @@
 package org.example.warehousemanagementsystem.pojo;
 
 public class ProductLocation extends DatabaseItem{
-    private String sku;
+    private int sku;
     private int aisleId;
     private int shelfId;
     private int quantity;
 
-    public ProductLocation(int id, String sku, int aisleId, int shelfId, int quantity) {
+    public ProductLocation(int id, int sku, int aisleId, int shelfId, int quantity) {
         super(id);
         this.sku = sku;
         this.aisleId = aisleId;
@@ -14,11 +14,11 @@ public class ProductLocation extends DatabaseItem{
         this.quantity = quantity;
     }
 
-    public String getSku() {
+    public int getSku() {
         return sku;
     }
 
-    public void setSku(String sku) {
+    public void setSku(int sku) {
         this.sku = sku;
     }
 

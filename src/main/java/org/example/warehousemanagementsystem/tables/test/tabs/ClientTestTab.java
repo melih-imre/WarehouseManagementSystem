@@ -11,7 +11,8 @@ import org.example.warehousemanagementsystem.tables.ClientTable;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayAisle;
 import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayClient;
 
-public class ClientTestTab extends Tab {
+public class
+ClientTestTab extends Tab {
     public TableView tableView;
     public ClientTestTab(){
         this.setText("CLIENTS");
@@ -55,7 +56,7 @@ public class ClientTestTab extends Tab {
         column9.setCellValueFactory(e-> new SimpleStringProperty(e.getValue().getState()));
 
         tableView.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8, column9);
-        tableView.getItems().addAll(clientTable.getItems());
+//        tableView.getItems().addAll(clientTable.getItems());
         root.setCenter(tableView);
         this.setContent(root);
     }

@@ -7,4 +7,6 @@ import java.util.ArrayList;
 public interface BrandDAO {
     public ArrayList<Brand> getAllBrands();
     public Brand getBrand(int id);
+
+    public boolean addBrand(Brand brand);
 }
