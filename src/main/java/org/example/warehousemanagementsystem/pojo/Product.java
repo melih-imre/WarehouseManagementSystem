@@ -1,5 +1,13 @@
 package org.example.warehousemanagementsystem.pojo;
 
+/**
+ * Represents a product in the warehouse with details such as SKU, brand ID, model, and price.
+ * This class extends DatabaseItem to include an ID for database purposes.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class Product extends DatabaseItem{
     private int brandId;
     private String model;

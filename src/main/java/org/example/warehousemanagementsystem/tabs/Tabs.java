@@ -2,6 +2,16 @@ package org.example.warehousemanagementsystem.tabs;
 
 import javafx.scene.control.TabPane;
 
+/**
+ * Manages the various tabs in the Warehouse Management System.
+ * This class follows the Singleton design pattern and is responsible
+ * for initializing and displaying all the tabs in the application.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-30
+ */
+
 public class Tabs extends TabPane {
     private static Tabs instance;
     public Tabs(){

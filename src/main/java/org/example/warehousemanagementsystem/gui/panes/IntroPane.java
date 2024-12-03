@@ -18,6 +18,14 @@ import org.example.warehousemanagementsystem.gui.scenes.LoginScene;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Represents the introductory pane of the warehouse management system.
+ * It displays a logo and the system name with a fade transition effect before transitioning to the login scene.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class IntroPane extends StackPane {
     public IntroPane() {
         // Load the logo image

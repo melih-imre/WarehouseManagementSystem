@@ -12,11 +12,27 @@ import java.util.ArrayList;
 
 import static org.example.warehousemanagementsystem.database.DBConst.*;
 
+/**
+ * The TransactionTable class provides methods to interact with the transactions table in the database.
+ * This class implements the TransactionDAO interface and supports CRUD operations on transaction data.
+ * Additionally, it includes methods to retrieve business insights, such as top-selling products.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-16
+ */
+
 public class TransactionTable implements TransactionDAO {
     private static TransactionTable instance;
     Database db = Database.getInstance();
     ArrayList<Transaction> transactions;
     public TransactionTable(){db = Database.getInstance();}
+
+    /**
+     * Retrieves all transactions from the database.
+     *
+     * @return An ArrayList of Transaction objects representing all transactions in the database.
+     */
     @Override
     public ArrayList<Transaction> getAllTransactions() {
         String query = "SELECT * FROM " + TABLE_TRANSACTIONS;
@@ -42,6 +58,13 @@ public class TransactionTable implements TransactionDAO {
         return transactions;
     }
 
+    /**
+     * Retrieves a transaction by its unique ID.
+     *
+     * @param id The ID of the transaction to retrieve.
+     * @return A Transaction object if found, otherwise null.
+     */
+
     @Override
     public Transaction getTransaction(int id) {
         String query = "SELECT * FROM " + TABLE_TRANSACTIONS + " WHERE " + TRANSACTIONS_COLUMN_ID + " = " +id;
@@ -66,12 +89,19 @@ public class TransactionTable implements TransactionDAO {
         return null;
     }
 
+    /**
+     * Retrieves the top-selling products based on transaction quantities.
+     *
+     * @return An ArrayList of Object arrays, where each array contains a Product object and total quantity sold.
+     */
+
     public ArrayList<Object[]> getTopSellingProducts() {
         ArrayList<Object[]> topSellingProducts = new ArrayList<>();
 
         String query = "SELECT p." + COLUMN_SKU + ", p." + COLUMN_BRAND_ID + ", p." + COLUMN_MODEL + ", p." + COLUMN_PRICE + ", SUM(t." + TRANSACTIONS_COLUMN_QUANTITY + ") AS total_sold " +
             "FROM " + TABLE_TRANSACTIONS + " t " +
             "JOIN " + TABLE_PRODUCT + " p ON t." + TRANSACTIONS_COLUMN_SKU + " = p." + COLUMN_SKU +
+            " WHERE t." + TRANSACTIONS_COLUMN_QUANTITY + " > 0 " +
             " GROUP BY p." + COLUMN_SKU + ", p." + COLUMN_BRAND_ID + ", p." + COLUMN_MODEL + ", p." + COLUMN_PRICE +
             " ORDER BY total_sold DESC LIMIT 10";
 
@@ -95,6 +125,12 @@ public class TransactionTable implements TransactionDAO {
 
         return topSellingProducts;
     }
+
+    /**
+     * Singleton pattern to get the single instance of TransactionTable.
+     *
+     * @return The singleton instance of TransactionTable.
+     */
 
     public static TransactionTable getInstance(){
         if (instance == null) {

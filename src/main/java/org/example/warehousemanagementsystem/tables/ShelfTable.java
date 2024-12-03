@@ -11,11 +11,26 @@ import java.util.ArrayList;
 
 import static org.example.warehousemanagementsystem.database.DBConst.*;
 
+/**
+ * Manages database operations related to the "Shelf" table.
+ * Implements the ShelfDAO interface to define standard operations for shelves.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-16
+ */
+
 public class ShelfTable implements ShelfDAO {
     private static ShelfTable instance;
     Database db = Database.getInstance();
     ArrayList<Shelf> shelves;
     private ShelfTable(){db = Database.getInstance();}
+
+    /**
+     * Retrieves all shelves from the database.
+     *
+     * @return An ArrayList of Shelf objects containing all shelves in the database.
+     */
     @Override
     public ArrayList<Shelf> getAllShelves() {
         String query = "SELECT * FROM " + TABLE_SHELVES;
@@ -35,6 +50,12 @@ public class ShelfTable implements ShelfDAO {
         }
         return shelves;    }
 
+    /**
+     * Retrieves a specific shelf from the database based on its ID.
+     *
+     * @param id The ID of the shelf to retrieve.
+     * @return A Shelf object representing the requested shelf, or null if not found.
+     */
     @Override
     public Shelf getShelf(int id) {
         String query = "SELECT * FROM " + TABLE_SHELVES + " WHERE " + SHELVES_COLUMN_ID + " = " +id;
@@ -54,6 +75,12 @@ public class ShelfTable implements ShelfDAO {
         }
         return null;
     }
+
+    /**
+     * Retrieves the singleton instance of the ShelfTable class.
+     *
+     * @return The singleton instance of ShelfTable.
+     */
 
     public static ShelfTable getInstance(){
         if (instance == null) {
