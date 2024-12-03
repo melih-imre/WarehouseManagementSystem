@@ -72,6 +72,7 @@ public class TransactionTable implements TransactionDAO {
         String query = "SELECT p." + COLUMN_SKU + ", p." + COLUMN_BRAND_ID + ", p." + COLUMN_MODEL + ", p." + COLUMN_PRICE + ", SUM(t." + TRANSACTIONS_COLUMN_QUANTITY + ") AS total_sold " +
             "FROM " + TABLE_TRANSACTIONS + " t " +
             "JOIN " + TABLE_PRODUCT + " p ON t." + TRANSACTIONS_COLUMN_SKU + " = p." + COLUMN_SKU +
+            " WHERE t." + TRANSACTIONS_COLUMN_QUANTITY + " > 0 " +
             " GROUP BY p." + COLUMN_SKU + ", p." + COLUMN_BRAND_ID + ", p." + COLUMN_MODEL + ", p." + COLUMN_PRICE +
             " ORDER BY total_sold DESC LIMIT 10";
 
