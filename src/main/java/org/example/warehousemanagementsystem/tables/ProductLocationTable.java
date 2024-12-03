@@ -72,7 +72,7 @@ public class ProductLocationTable implements ProductLocationDAO {
     public int getQuantity(int id){
         String query = "SELECT SUM(" + PRODUCT_LOCATION_COLUMN_QUANTITY + ") AS total_quantity " +
                 "FROM " + TABLE_PRODUCT_LOCATIONS +
-                " WHERE " + PRODUCT_LOCATION_COLUMN_SKU + " = '" + id + "'";
+                " WHERE " + PRODUCT_LOCATION_ID + " = '" + id + "'";
         try {
             Statement getQuantity = db.getConnection().createStatement();
             ResultSet resultSet = getQuantity.executeQuery(query);
@@ -84,5 +84,35 @@ public class ProductLocationTable implements ProductLocationDAO {
         }
         return 0;
 
+    }
+
+    public void updateQuantity(int id, int quantity){
+        int updatedQuantity = getQuantity(id) - quantity;
+        String query = "UPDATE " + TABLE_PRODUCT_LOCATIONS +
+                " SET " + PRODUCT_LOCATION_COLUMN_QUANTITY + " = " + updatedQuantity +
+                " WHERE " + PRODUCT_LOCATION_ID + " = " + id;
+
+        try {
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Quantity updated successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLocationIdBySku(int sku) {
+        String query = "SELECT " + PRODUCT_LOCATION_ID + " FROM " + TABLE_PRODUCT_LOCATIONS + " WHERE " + PRODUCT_LOCATION_COLUMN_SKU + " = " +sku;
+
+        try {
+            Statement getProductLocation = db.getConnection().createStatement();
+            ResultSet data = getProductLocation.executeQuery(query);
+            if (data.next()){
+                return data.getInt(PRODUCT_LOCATION_ID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -42;
     }
 }

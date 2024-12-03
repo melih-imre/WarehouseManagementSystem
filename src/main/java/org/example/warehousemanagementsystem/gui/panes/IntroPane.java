@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import org.example.warehousemanagementsystem.Main;
 import org.example.warehousemanagementsystem.gui.scenes.LoginScene;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class IntroPane extends StackPane {
@@ -39,7 +40,11 @@ public class IntroPane extends StackPane {
         fadeText.setToValue(1);
 
         fadeText.setOnFinished(event -> {
-            Main.mainStage.setScene(new LoginScene());
+            try {
+                Main.mainStage.setScene(new LoginScene());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         fadeImage.setOnFinished(event -> fadeText.play());
