@@ -11,7 +11,8 @@ public class DisplayClient {
     private String city;
     private String state;
 
-    public DisplayClient(int clientId, String firstName, String lastName, String email, String phone, String streetNumber, String streetName, String city, String state) {
+    public DisplayClient(int clientId, String firstName, String lastName, String email,
+                         String phone, String streetNumber, String streetName, String city, String state) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
