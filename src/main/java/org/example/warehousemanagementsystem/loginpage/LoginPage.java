@@ -13,7 +13,7 @@ import org.example.warehousemanagementsystem.gui.scenes.HomeScene;
 
 // Fields
 public class LoginPage extends GridPane {
-    private TextField serverLocationField;
+//    private TextField serverLocationField;
     private TextField usernameField;
     private Button cancelButton;
     private PasswordField passwordField;
@@ -24,7 +24,7 @@ public class LoginPage extends GridPane {
 //Buttons
     public LoginPage() {
         dbNameField = new TextField();
-        serverLocationField = new TextField();
+//        serverLocationField = new TextField();
         usernameField = new TextField();
         passwordField = new PasswordField();
         loginButton = new Button("Login");
@@ -43,7 +43,7 @@ public class LoginPage extends GridPane {
 
 
         Label dbNameLabel = new Label("Database Name:");
-        Label serverLocationLabel = new Label("Server Location:");
+//        Label serverLocationLabel = new Label("Server Location:");
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
 
@@ -51,14 +51,14 @@ public class LoginPage extends GridPane {
         // column and row positions
         gridPane.add(dbNameLabel, 0, 0);
         gridPane.add(dbNameField, 1, 0);
-        gridPane.add(serverLocationLabel, 0, 1);
-        gridPane.add(serverLocationField, 1, 1);
-        gridPane.add(usernameLabel, 0, 2);
-        gridPane.add(usernameField, 1, 2);
-        gridPane.add(passwordLabel, 0, 3);
-        gridPane.add(passwordField, 1, 3);
-        gridPane.add(loginButton, 1, 4);
-        gridPane.add(cancelButton, 1, 5);
+//        gridPane.add(serverLocationLabel, 0, 1);
+//        gridPane.add(serverLocationField, 1, 1);
+        gridPane.add(usernameLabel, 0, 1);
+        gridPane.add(usernameField, 1, 1);
+        gridPane.add(passwordLabel, 0, 2);
+        gridPane.add(passwordField, 1, 2);
+        gridPane.add(loginButton, 1, 3);
+        gridPane.add(cancelButton, 1, 4);
 
         return gridPane;
     }
@@ -66,7 +66,7 @@ public class LoginPage extends GridPane {
     // Method that handles the login stuff
     private void login() {
         String dbName = dbNameField.getText();
-        String serverLocation = serverLocationField.getText();
+        String serverLocation = "";
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -84,7 +84,7 @@ public class LoginPage extends GridPane {
     // Method to clears all
     private void cancel() {
         dbNameField.clear();
-        serverLocationField.clear();
+//        serverLocationField.clear();
         usernameField.clear();
         passwordField.clear();
     }

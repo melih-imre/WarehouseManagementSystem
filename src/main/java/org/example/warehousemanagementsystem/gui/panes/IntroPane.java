@@ -16,7 +16,8 @@ import java.util.Objects;
 public class IntroPane extends StackPane {
     public IntroPane(){
         ImageView imageView = new ImageView(new Image(
-                Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm()));        imageView.setFitWidth(300);  // Adjust width of the image
+                Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm()));
+        imageView.setFitWidth(300);
         imageView.setFitHeight(300); // Adjust height of the image
 
         Label textLabel = new Label("WAREHOUSE DATABASE MANAGEMENT SYSTEM");
@@ -27,22 +28,21 @@ public class IntroPane extends StackPane {
         this.getChildren().addAll(imageView, textLabel);
 
         StackPane.setAlignment(textLabel, javafx.geometry.Pos.BOTTOM_CENTER);
-        StackPane.setMargin(textLabel, new javafx.geometry.Insets(20, 0, 50, 0)); // Margin between image and text
+        StackPane.setMargin(textLabel, new javafx.geometry.Insets(20, 0, 50, 0));
 
         FadeTransition fadeImage = new FadeTransition(Duration.seconds(5), imageView);
-        fadeImage.setFromValue(0); // Start as invisible
-        fadeImage.setToValue(1);   // Fade in to full visibility
+        fadeImage.setFromValue(0);
+        fadeImage.setToValue(1);
 
         FadeTransition fadeText = new FadeTransition(Duration.seconds(5), textLabel);
-        fadeText.setFromValue(0);  // Start as invisible
-        fadeText.setToValue(1);    // Fade in to full visibility
+        fadeText.setFromValue(0);
+        fadeText.setToValue(1);
 
         fadeText.setOnFinished(event -> {
-            // Replace with your new scene, e.g., LoginScene
             Main.mainStage.setScene(new LoginScene());
         });
 
-        fadeImage.setOnFinished(event -> fadeText.play());  // Fade text after image fades in
+        fadeImage.setOnFinished(event -> fadeText.play());
 
         fadeImage.play();
 
