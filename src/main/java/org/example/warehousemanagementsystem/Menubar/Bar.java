@@ -1,12 +1,17 @@
 package org.example.warehousemanagementsystem.Menubar;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.example.warehousemanagementsystem.gui.panes.HomePane;
-import org.example.warehousemanagementsystem.gui.panes.TabsPane;
 import org.example.warehousemanagementsystem.tabs.Tabs;
 
 public class Bar extends MenuBar {
@@ -31,12 +36,13 @@ public class Bar extends MenuBar {
         MenuItem productsMenuItem = new MenuItem("Products");
         productsMenuItem.getStyleClass().add("menu-item");
         MenuItem categoriesMenuItem = new MenuItem("Categories");
-        productsMenuItem.getStyleClass().add("menu-item");
+        categoriesMenuItem.getStyleClass().add("menu-item");
         MenuItem statisticsMenuItem = new MenuItem("Statistics");
-        productsMenuItem.getStyleClass().add("menu-item");
+        statisticsMenuItem.getStyleClass().add("menu-item");
 
         Tabs tabs = Tabs.getInstance();
 
+        // View Menu Actions (Same as before)
         clientsMenuItem.setOnAction(e -> {
             root.setCenter(tabs);
             tabs.getSelectionModel().select(1);
@@ -62,7 +68,9 @@ public class Bar extends MenuBar {
             tabs.getSelectionModel().select(7);
         });
 
+        // Credits Menu Action with Enhanced Effects
         creditsMenuItem.setOnAction(e -> {
+            // Create a Text object for credits
             Text creditsText = new Text("Developer Information:\n\n" +
                     "Melih:\n" +
                     "Role: Backend Developer\n" +
@@ -78,8 +86,32 @@ public class Bar extends MenuBar {
                     "Contact: sai@example.com\n\n" +
                     "Version: 1.0.0\n" +
                     "Date: December 2024");
-            creditsText.getStyleClass().add("credits-text");
+
+            // Style the credits text
+            creditsText.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+            creditsText.setFill(Color.WHITE);
+            creditsText.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 8, 0.7, 2, 2);");
+            creditsText.setOpacity(0);  // Start with invisible text
+
+            // Add a cool gradient background to the center of the screen
+            root.setStyle("-fx-background-color: linear-gradient(to top, #5baafd, #bdc3c7);");
+
+            // Add Text to the center of the root
             root.setCenter(creditsText);
+
+            // Fade In Animation for the credits text
+            FadeTransition fadeText = new FadeTransition(Duration.seconds(3), creditsText);
+            fadeText.setFromValue(0);
+            fadeText.setToValue(1);
+            fadeText.play();
+
+            // Create TranslateTransition for moving creditsText
+            TranslateTransition translateText = new TranslateTransition(Duration.seconds(10), creditsText);
+            translateText.setFromY(0);  // Start position
+            translateText.setToY(700);    // End position
+
+            // Play the translation effect after fade-in completes
+            fadeText.setOnFinished(event -> translateText.play());
         });
 
         viewMenu.getItems().addAll(productsMenuItem, clientsMenuItem, transactionsMenuItem, categoriesMenuItem, statisticsMenuItem, creditsMenuItem);
