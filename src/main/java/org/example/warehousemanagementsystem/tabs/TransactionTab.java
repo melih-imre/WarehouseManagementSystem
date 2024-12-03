@@ -4,6 +4,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import org.example.warehousemanagementsystem.pojo.Transaction;
+import org.example.warehousemanagementsystem.tables.ProductLocationTable;
 import org.example.warehousemanagementsystem.tables.TransactionTable;
 
 public class TransactionTab extends Tab {
@@ -19,6 +20,7 @@ public class TransactionTab extends Tab {
         root.getStyleClass().add("transaction-tab-root");
 
         TransactionTable transactionTable = TransactionTable.getInstance();
+        ProductLocationTable productLocationTable = ProductLocationTable.getInstance();
 
         // SKU
         Text skuLabel = new Text("SKU:");
@@ -57,9 +59,18 @@ public class TransactionTab extends Tab {
         Text locationIdLabel = new Text("Product Location ID:");
         locationIdLabel.getStyleClass().add("label");
         TextField locationIdTextField = new TextField();
+        locationIdTextField.setEditable(false);
         locationIdTextField.setPromptText("Enter Location ID");
         root.add(locationIdLabel, 0, 5);
         root.add(locationIdTextField, 1, 5);
+
+        skuTextField.textProperty().addListener(((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        int sku = Integer.parseInt(newValue);
+                        int locationId = productLocationTable.getLocationIdBySku(sku);
+                        locationIdTextField.setText(String.valueOf(locationId));
+                    }
+                }));
 
         // Submit Button
         Button submitButton = new Button("Add Transaction");
@@ -75,6 +86,7 @@ public class TransactionTab extends Tab {
 
                 Transaction transaction = new Transaction(transactionId, sku, clientId, date, quantity, locationId);
                 transactionTable.createTransaction(transaction);
+                productLocationTable.updateQuantity(locationId, quantity);
                 TransactionDeleteUpdateTab.getInstance().refreshTable();
 
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -83,6 +95,8 @@ public class TransactionTab extends Tab {
                 successAlert.setContentText("Transaction added successfully!");
                 successAlert.showAndWait();
                 StatisticsTab.getInstance().generateTopSellingProductsChart();
+                StatisticsTab.getInstance().generateBarChart();
+
             } catch (Exception ex) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");
