@@ -12,8 +12,6 @@ public class Main extends Application {
         mainStage = stage;
         mainStage.setScene(new IntroScene());
 
-        Database db = Database.getInstance();
-
         mainStage.setTitle("Warehouse Database Management System");
         mainStage.show();
     }

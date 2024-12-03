@@ -75,6 +75,8 @@ public class LoginPage extends GridPane {
             Database.getInstance().connect(serverLocation, dbName, username, password);
             System.out.println("Login Successful. Connected to Database!");
 
+//            Database db = Database.getInstance();
+
             Main.mainStage.setScene(new HomeScene());
         } catch (Exception e) {
             System.out.println("Failed to connect: " + e.getMessage());
