@@ -6,15 +6,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.Main;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.gui.scenes.HomeScene;
 
 import java.io.IOException;
 
+/**
+ * Login page for the Warehouse Management System.
+ * Allows users to enter credentials and connect to the database.
+ *
+ * @author Numan
+ * @date Dec 3, 2024
+ * @version 1.0
+ */
 public class LoginPage extends GridPane {
     private TextField usernameField;
     private Button cancelButton;
@@ -22,6 +27,11 @@ public class LoginPage extends GridPane {
     private Button loginButton;
     private TextField dbNameField;
 
+    /**
+     * Sets up the login page with input fields and buttons.
+     *
+     * @throws IOException If loading fails.
+     */
     public LoginPage() throws IOException {
         dbNameField = new TextField();
         dbNameField.setText(Manager.getDbName());
@@ -36,34 +46,33 @@ public class LoginPage extends GridPane {
         cancelButton.setOnAction(event -> cancel());
     }
 
+    /**
+     * Builds and returns the layout of the login page.
+     *
+     * @return The GridPane layout for the login page.
+     */
     public GridPane getLoginPane() {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(40));
         gridPane.setHgap(20);
         gridPane.setVgap(15);
-        gridPane.setStyle("-fx-background-color: #add8e6;");  // Light blue background
+        gridPane.setStyle("-fx-background-color: #add8e6;");
 
         Label dbNameLabel = new Label("Database Name:");
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
 
-        dbNameLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #333333;");
-        usernameLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #333333;");
-        passwordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #333333;");
+        dbNameField.setStyle("-fx-background-color: #ffffff;");
+        usernameField.setStyle("-fx-background-color: #ffffff;");
+        passwordField.setStyle("-fx-background-color: #ffffff;");
+        loginButton.setStyle("-fx-background-color: #4caf50;");
+        cancelButton.setStyle("-fx-background-color: #f44336;");
 
-        dbNameField.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #333333; -fx-border-radius: 25px; -fx-padding: 10;");
-        usernameField.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #333333; -fx-border-radius: 25px; -fx-padding: 10;");
-        passwordField.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #333333; -fx-border-radius: 25px; -fx-padding: 10;");
-        loginButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 25px;");
-        cancelButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 25px;");
+        loginButton.setOnMouseEntered(event -> loginButton.setStyle("-fx-background-color: #45a049;"));
+        loginButton.setOnMouseExited(event -> loginButton.setStyle("-fx-background-color: #4caf50;"));
+        cancelButton.setOnMouseEntered(event -> cancelButton.setStyle("-fx-background-color: #e53935;"));
+        cancelButton.setOnMouseExited(event -> cancelButton.setStyle("-fx-background-color: #f44336;"));
 
-        // Buttons hover effects
-        loginButton.setOnMouseEntered(event -> loginButton.setStyle("-fx-background-color: #45a049; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 25px;"));
-        loginButton.setOnMouseExited(event -> loginButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 25px;"));
-        cancelButton.setOnMouseEntered(event -> cancelButton.setStyle("-fx-background-color: #e53935; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 25px;"));
-        cancelButton.setOnMouseExited(event -> cancelButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-border-radius: 25px;"));
-
-        // column and row positions
         gridPane.add(dbNameLabel, 0, 0);
         gridPane.add(dbNameField, 1, 0);
         gridPane.add(usernameLabel, 0, 1);
@@ -73,12 +82,15 @@ public class LoginPage extends GridPane {
         gridPane.add(loginButton, 1, 3);
         gridPane.add(cancelButton, 1, 4);
 
-        // Centering the entire GridPane
         gridPane.setAlignment(javafx.geometry.Pos.CENTER);
 
         return gridPane;
     }
 
+    /**
+     * Attempts to log in using the provided credentials.
+     * If successful, transitions to the home scene.
+     */
     private void login() {
         String dbName = dbNameField.getText();
         String serverLocation = "";
@@ -87,15 +99,17 @@ public class LoginPage extends GridPane {
 
         try {
             Database.getInstance().connect(serverLocation, dbName, username, password);
-            System.out.println("Login Successful. Connected to Database!");
+            System.out.println("Login Successful.");
             Manager.info(serverLocation, dbName, username, password);
-
             Main.mainStage.setScene(new HomeScene());
         } catch (Exception e) {
             System.out.println("Failed to connect: " + e.getMessage());
         }
     }
 
+    /**
+     * Clears all input fields when the cancel button is pressed.
+     */
     private void cancel() {
         dbNameField.clear();
         usernameField.clear();
