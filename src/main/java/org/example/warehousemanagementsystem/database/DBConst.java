@@ -1,5 +1,13 @@
 package org.example.warehousemanagementsystem.database;
 
+/**
+ * This class contains constants for table names, column names, and SQL queries
+ * used in the warehouse management system database.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class DBConst {
 
     /**

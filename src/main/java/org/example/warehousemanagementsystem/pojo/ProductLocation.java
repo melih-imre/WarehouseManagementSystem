@@ -1,5 +1,13 @@
 package org.example.warehousemanagementsystem.pojo;
 
+/**
+ * Represents a product's location in the warehouse, including its SKU, aisle, shelf, and quantity.
+ * This class extends DatabaseItem to include an ID for database purposes.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class ProductLocation extends DatabaseItem{
     private int sku;
     private int aisleId;

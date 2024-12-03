@@ -13,6 +13,16 @@ import java.util.ArrayList;
 
 import static org.example.warehousemanagementsystem.database.DBConst.*;
 
+/**
+ * Handles database operations related to the "Clients" table.
+ * Implements the ClientDAO interface for standard data access methods.
+ * This class follows the Singleton design pattern.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-16
+ */
+
 public class ClientTable implements ClientDAO {
     private static ClientTable instance;
     Database db = Database.getInstance();
@@ -22,6 +32,12 @@ public class ClientTable implements ClientDAO {
         db = Database.getInstance();
     }
 
+    /**
+     * Retrieves all clients from the database.
+     *
+     * @return An ArrayList of Client objects representing all clients in the database.
+     * @throws SQLException If there is an error executing the SQL query.
+     */
     @Override
     public ArrayList<Client> getAllClients() {
         String query = "SELECT * FROM " + TABLE_CLIENTS;
@@ -50,6 +66,12 @@ public class ClientTable implements ClientDAO {
         return clients;
     }
 
+    /**
+     * Retrieves a client from the database based on their ID.
+     *
+     * @param id The ID of the client to be retrieved.
+     * @return A Client object if found, otherwise null.
+     */
     @Override
     public Client getClient(int id) {
         String query = "SELECT * FROM " + TABLE_CLIENTS + " WHERE " + COLUMN_CLIENT_ID + " = " + id;

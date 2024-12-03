@@ -2,6 +2,14 @@ package org.example.warehousemanagementsystem.pojo;
 
 import org.example.warehousemanagementsystem.database.Database;
 
+/**
+ * Represents a location in the warehouse, consisting of aisle, shelf, and capacity information.
+ * This class extends DatabaseItem to include an ID for database purposes.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-15
+ */
 public class Location extends DatabaseItem {
     private int aisleId;
     private int shelfId;

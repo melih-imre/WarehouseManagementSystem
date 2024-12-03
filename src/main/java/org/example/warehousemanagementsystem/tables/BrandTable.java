@@ -12,6 +12,16 @@ import java.util.ArrayList;
 
 import static org.example.warehousemanagementsystem.database.DBConst.*;
 
+/**
+ * Handles database operations related to the "Brand" table.
+ * Implements the BrandDAO interface for standard data access methods.
+ * This class follows the Singleton design pattern.
+ *
+ * @author 0845830 Melih Imre
+ * @version 1.0
+ * @date 2024-11-16
+ */
+
 public class BrandTable implements BrandDAO {
     private static BrandTable instance;
     Database db = Database.getInstance();
@@ -20,6 +30,11 @@ public class BrandTable implements BrandDAO {
         db = Database.getInstance();
     }
 
+    /**
+     * Retrieves all brands from the database.
+     *
+     * @return An ArrayList of Brand objects representing all brands in the database.
+     */
     @Override
     public ArrayList<Brand> getAllBrands() {
         String query = "SELECT * FROM " + TABLE_BRAND;
@@ -41,6 +56,12 @@ public class BrandTable implements BrandDAO {
         return brands;
     }
 
+    /**
+     * Retrieves a brand from the database based on its ID.
+     *
+     * @param id The ID of the brand to be retrieved.
+     * @return A Brand object if found, otherwise null.
+     */
     @Override
     public Brand getBrand(int id) {
         String query = "SELECT * FROM " + TABLE_BRAND + " WHERE " + BRAND_COLUMN_BRAND_ID + " = " +id;
