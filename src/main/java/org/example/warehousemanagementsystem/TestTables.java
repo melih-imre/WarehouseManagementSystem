@@ -14,8 +14,8 @@ public class TestTables extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = new BorderPane();
-        Bar menu = new Bar(new TabPane());
-        root.setTop(menu);
+//        Bar menu = new Bar(new TabPane());
+//        root.setTop(menu);
         TabPane tabPane = new TabPane();
 
         AislesTestTab aislesTab = new AislesTestTab();

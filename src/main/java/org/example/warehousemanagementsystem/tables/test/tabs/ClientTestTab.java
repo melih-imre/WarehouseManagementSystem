@@ -56,7 +56,7 @@ ClientTestTab extends Tab {
         column9.setCellValueFactory(e-> new SimpleStringProperty(e.getValue().getState()));
 
         tableView.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8, column9);
-        tableView.getItems().addAll(clientTable.getItems());
+//        tableView.getItems().addAll(clientTable.getItems());
         root.setCenter(tableView);
         this.setContent(root);
     }
