@@ -1,0 +1,36 @@
+
+/* MenuBar styling */
+.menu-bar {
+    -fx-background-color: linear-gradient(to right, #2c3e50, #4ca1af);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial, sans-serif;
+}
+
+.menu {
+    -fx-text-fill: white;
+    -fx-padding: 0 10px;
+}
+
+.menu-item {
+    -fx-text-fill: #2c3e50;
+    -fx-background-color: white;
+    -fx-padding: 5px 10px;
+    -fx-font-weight: bold;
+}
+
+.menu-item:hover {
+    -fx-background-color: #4ca1af;
+    -fx-text-fill: white;
+}
+
+.credits-text {
+    -fx-font-size: 16px;
+    -fx-font-family: "Courier New", monospace;
+    -fx-text-fill: #34495e;
+    -fx-padding: 20px;
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: #95a5a6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}

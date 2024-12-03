@@ -1,10 +1,10 @@
+
+
 package org.example.warehousemanagementsystem.tables;
 
 import org.example.warehousemanagementsystem.dao.ClientDAO;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.pojo.Client;
-import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayAisle;
-import org.example.warehousemanagementsystem.tables.test.displayItems.DisplayClient;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +17,11 @@ public class ClientTable implements ClientDAO {
     private static ClientTable instance;
     Database db = Database.getInstance();
     ArrayList<Client> clients;
-    public ClientTable(){db = Database.getInstance();}
+
+    public ClientTable() {
+        db = Database.getInstance();
+    }
+
     @Override
     public ArrayList<Client> getAllClients() {
         String query = "SELECT * FROM " + TABLE_CLIENTS;
@@ -27,7 +31,7 @@ public class ClientTable implements ClientDAO {
             Statement getClients = db.getConnection().createStatement();
             ResultSet resultSet = getClients.executeQuery(query);
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 clients.add(new Client(
                         resultSet.getInt(COLUMN_CLIENT_ID),
                         resultSet.getString(COLUMN_FIRST_NAME),
@@ -40,7 +44,7 @@ public class ClientTable implements ClientDAO {
                         resultSet.getString(COLUMN_STATE)
                 ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return clients;
@@ -48,13 +52,13 @@ public class ClientTable implements ClientDAO {
 
     @Override
     public Client getClient(int id) {
-        String query = "SELECT * FROM " + TABLE_CLIENTS + " WHERE " + COLUMN_CLIENT_ID + " = " +id;
+        String query = "SELECT * FROM " + TABLE_CLIENTS + " WHERE " + COLUMN_CLIENT_ID + " = " + id;
 
         try {
             Statement getClient = db.getConnection().createStatement();
             ResultSet data = getClient.executeQuery(query);
-            if (data.next()){
-                Client client = new Client(
+            if (data.next()) {
+                return new Client(
                         data.getInt(COLUMN_CLIENT_ID),
                         data.getString(COLUMN_FIRST_NAME),
                         data.getString(COLUMN_LAST_NAME),
@@ -65,7 +69,6 @@ public class ClientTable implements ClientDAO {
                         data.getString(COLUMN_CITY),
                         data.getString(COLUMN_STATE)
                 );
-                return client;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,38 +76,71 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
-    public static ClientTable getInstance(){
+    // Singleton Instance
+    public static ClientTable getInstance() {
         if (instance == null) {
             instance = new ClientTable();
         }
         return instance;
     }
 
-    public ArrayList<DisplayClient> getItems(){
-        ArrayList<DisplayClient> clients = new ArrayList<DisplayClient>();
-        String query = "SELECT client_id, first_name, last_name, email, phone, " +
-                "street_number, street_name, city, state " +
-                "FROM clients " +
-                "ORDER BY client_id ASC";
+    // Insert a new client into the database
+    public void createClient(Client client) {
+        String query = "INSERT INTO " + TABLE_CLIENTS + " (" +
+                COLUMN_FIRST_NAME + ", " +
+                COLUMN_LAST_NAME + ", " +
+                COLUMN_EMAIL + ", " +
+                COLUMN_PHONE + ", " +
+                COLUMN_STREET_NUMBER + ", " +
+                COLUMN_STREET_NAME + ", " +
+                COLUMN_CITY + ", " +
+                COLUMN_STATE + ") VALUES ('" +
+                client.getFirstName() + "', '" +
+                client.getLastName() + "', '" +
+                client.getEmail() + "', '" +
+                client.getPhone() + "', '" +
+                client.getStreetNumber() + "', '" +
+                client.getStreetName() + "', '" +
+                client.getCity() + "', '" +
+                client.getState() + "')";
+
         try {
-            Statement getClients = db.getConnection().createStatement();
-            ResultSet data = getClients.executeQuery(query);
-            while (data.next()) {
-                clients.add(new DisplayClient(
-                        data.getInt("client_id"),
-                        data.getString("first_name"),
-                        data.getString("last_name"),
-                        data.getString("email"),
-                        data.getString("phone"),
-                        data.getString("street_number"),
-                        data.getString("street_name"),
-                        data.getString("city"),
-                        data.getString("state")
-                ));
-            }
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Client created successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return clients;
+    }
+
+
+    public void deleteClient(int id) {
+        String query = "DELETE FROM " + TABLE_CLIENTS + " WHERE " + COLUMN_CLIENT_ID + " = " + id;
+        // Implementation for deleting a client by ID
+        try {
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Client deleted successfully");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateClient(Client client) {
+        String query = "UPDATE " + TABLE_CLIENTS + " SET " +
+                COLUMN_FIRST_NAME + " = '" + client.getFirstName() + "', " +
+                COLUMN_LAST_NAME + " = '" + client.getLastName() + "', " +
+                COLUMN_EMAIL + " = '" + client.getEmail() + "', " +
+                COLUMN_PHONE + " = '" + client.getPhone() + "', " +
+                COLUMN_STREET_NUMBER + " = '" + client.getStreetNumber() + "', " +
+                COLUMN_STREET_NAME + " = '" + client.getStreetName() + "', " +
+                COLUMN_CITY + " = '" + client.getCity() + "', " +
+                COLUMN_STATE + " = '" + client.getState() + "' " +
+                "WHERE " + COLUMN_CLIENT_ID + " = " + client.getId();
+
+        try {
+            db.getConnection().createStatement().execute(query);
+            System.out.println("Client updated successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

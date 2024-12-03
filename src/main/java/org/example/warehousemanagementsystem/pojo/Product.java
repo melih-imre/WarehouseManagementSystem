@@ -3,13 +3,23 @@ package org.example.warehousemanagementsystem.pojo;
 public class Product extends DatabaseItem{
     private int brandId;
     private String model;
+    private int sku;
     private int price;
 
-    public Product(int id, int brandId, String model, int price) {
-        super(id);
+    public Product(int sku, int brandId, String model, int price) {
+
         this.brandId = brandId;
         this.model = model;
         this.price = price;
+        this.sku = sku;
+    }
+
+    public int getSku() {
+        return sku;
+    }
+
+    public void setSku(int sku) {
+        this.sku = sku;
     }
 
     public int getBrandId() {
@@ -39,6 +49,7 @@ public class Product extends DatabaseItem{
     @Override
     public String toString() {
         return "Product{" +
+                "Sku= "+sku+
                 "brandId=" + brandId +
                 ", model='" + model + '\'' +
                 ", price=" + price +

@@ -6,11 +6,13 @@ import org.example.warehousemanagementsystem.Menubar.Bar;
 
 
 public class HomePane extends BorderPane {
+    private TabsPane tabsPane;
     public HomePane(){
-        Bar menu = new Bar();
+        Bar menu = new Bar(this,this);
         this.setTop(menu);
 
-        TabsPane tabsPane = new TabsPane();
+        tabsPane = new TabsPane();
         this.setCenter(tabsPane);
     }
+
 }

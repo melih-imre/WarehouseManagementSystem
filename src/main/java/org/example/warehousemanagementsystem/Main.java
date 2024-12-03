@@ -4,11 +4,11 @@ import javafx.stage.Stage;
 import org.example.warehousemanagementsystem.database.Database;
 import org.example.warehousemanagementsystem.gui.scenes.IntroScene;
 
-
 public class Main extends Application {
     public static Stage mainStage;
     @Override
     public void start(Stage stage) {
+
         mainStage = stage;
         mainStage.setScene(new IntroScene());
 

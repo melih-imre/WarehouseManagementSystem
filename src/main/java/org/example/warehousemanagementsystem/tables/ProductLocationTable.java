@@ -28,7 +28,7 @@ public class ProductLocationTable implements ProductLocationDAO {
             while (resultSet.next()){
                 productLocations.add(new ProductLocation(
                         resultSet.getInt(PRODUCT_LOCATION_ID),
-                        resultSet.getString(PRODUCT_LOCATION_COLUMN_SKU),
+                        resultSet.getInt(PRODUCT_LOCATION_COLUMN_SKU),
                         resultSet.getInt(PRODUCT_LOCATION_COLUMN_AISLE_ID),
                         resultSet.getInt(PRODUCT_LOCATION_COLUMN_SHELF_ID),
                         resultSet.getInt(PRODUCT_LOCATION_COLUMN_QUANTITY)
@@ -50,7 +50,7 @@ public class ProductLocationTable implements ProductLocationDAO {
             if (data.next()){
                 ProductLocation productLocation = new ProductLocation(
                         data.getInt(PRODUCT_LOCATION_ID),
-                        data.getString(PRODUCT_LOCATION_COLUMN_SKU),
+                        data.getInt(PRODUCT_LOCATION_COLUMN_SKU),
                         data.getInt(PRODUCT_LOCATION_COLUMN_AISLE_ID),
                         data.getInt(PRODUCT_LOCATION_COLUMN_SHELF_ID),
                         data.getInt(PRODUCT_LOCATION_COLUMN_QUANTITY)
@@ -67,5 +67,22 @@ public class ProductLocationTable implements ProductLocationDAO {
             instance = new ProductLocationTable();
         }
         return instance;
+    }
+
+    public int getQuantity(int id){
+        String query = "SELECT SUM(" + PRODUCT_LOCATION_COLUMN_QUANTITY + ") AS total_quantity " +
+                "FROM " + TABLE_PRODUCT_LOCATIONS +
+                " WHERE " + PRODUCT_LOCATION_COLUMN_SKU + " = '" + id + "'";
+        try {
+            Statement getQuantity = db.getConnection().createStatement();
+            ResultSet resultSet = getQuantity.executeQuery(query);
+            if (resultSet.next()) {
+                return resultSet.getInt("total_quantity");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+
     }
 }
