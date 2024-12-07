@@ -15,7 +15,8 @@ public class DeleteProductTask {
     }
     public boolean execute(){
         boolean isDeleted =false;
-        try (Connection connection= Database.getInstance().getConnection()){
+        try {
+            Connection connection= Database.getInstance().getConnection();
             String deleteQuery ="DELETE FROM "+ DBConst.TABLE_PRODUCT+" WHERE "+ DBConst.PRODUCT_LOCATION_COLUMN_SKU + " = " + id;
             try (Statement statement = connection.createStatement()) {
                 int rowsDeleted = statement.executeUpdate(deleteQuery);

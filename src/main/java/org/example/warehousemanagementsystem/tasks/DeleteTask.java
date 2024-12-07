@@ -21,7 +21,8 @@ public class DeleteTask {
 
     public boolean execute(){
         boolean isDeleted = false;
-        try(Connection connection= Database.getInstance().getConnection()){
+        try{
+            Connection connection= Database.getInstance().getConnection();
             String deleteQuery = "DELETE FROM "+ DBConst.TABLE_CATEGORIES+" WHERE "+DBConst.CATEGORY_COLUMN_CATEGORY_ID+" = "+recordID;
             try(Statement statement = connection.createStatement()){
                 int rowsDeleted = statement.executeUpdate(deleteQuery);
