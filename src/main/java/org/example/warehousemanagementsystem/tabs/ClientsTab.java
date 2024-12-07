@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import org.example.warehousemanagementsystem.pojo.Client;
 import org.example.warehousemanagementsystem.tables.ClientTable;
 
+import java.util.ArrayList;
+
 public class ClientsTab extends Tab {
     private static ClientsTab instance;
 
@@ -89,9 +91,24 @@ public class ClientsTab extends Tab {
         stateLabel.setFont(Font.font("Arial", 14));
         stateLabel.setFill(Color.BLACK);
         ComboBox<String> comboState = new ComboBox<>();
-        comboState.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getState).distinct().toList()
-        ));
+        comboState.setPromptText("Select State");
+        ArrayList<String> states = new ArrayList<>();
+        states.add("AB");
+        states.add("BC");
+        states.add("MB");
+        states.add("NB");
+        states.add("NL");
+        states.add("NT");
+        states.add("NS");
+        states.add("NU");
+        states.add("ON");
+        states.add("PE");
+        states.add("QC");
+        states.add("SK");
+        states.add("YT");
+
+        comboState.setItems(FXCollections.observableArrayList(states));
+
         styleComboBox(comboState);
         root.add(stateLabel, 0, 7);
         root.add(comboState, 1, 7);
