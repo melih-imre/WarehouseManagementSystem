@@ -124,8 +124,8 @@ public class TransactionTab extends Tab {
         TextField locationIdTextField = new TextField();
         locationIdTextField.setEditable(false);
         locationIdTextField.setPromptText("Enter Location ID");
-        insertField.add(locationIdLabel, 0, 5);
-        insertField.add(locationIdTextField, 1, 5);
+//        insertField.add(locationIdLabel, 0, 5);
+//        insertField.add(locationIdTextField, 1, 5);
 
         skuTextField.textProperty().addListener(((observable, oldValue, newValue) -> {
             if (newValue != null) {
