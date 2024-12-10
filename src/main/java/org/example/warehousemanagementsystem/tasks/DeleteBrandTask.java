@@ -15,7 +15,8 @@ public class DeleteBrandTask {
     }
     public boolean execute(){
         boolean isDeleted = false;
-        try(Connection connection= Database.getInstance().getConnection()) {
+        try {
+            Connection connection= Database.getInstance().getConnection();
             String deleteQuery = "DELETE FROM " + DBConst.TABLE_BRAND + " WHERE " + DBConst.BRAND_COLUMN_BRAND_ID + " = " + id;
             try (Statement statement = connection.createStatement()) {
                 int rowsDeleted = statement.executeUpdate(deleteQuery);

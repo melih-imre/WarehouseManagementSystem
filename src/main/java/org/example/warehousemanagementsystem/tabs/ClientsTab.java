@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import org.example.warehousemanagementsystem.pojo.Client;
 import org.example.warehousemanagementsystem.tables.ClientTable;
 
+import java.util.ArrayList;
+
 public class ClientsTab extends Tab {
     private static ClientsTab instance;
 
@@ -76,11 +78,14 @@ public class ClientsTab extends Tab {
         Text cityLabel = new Text("City:");
         cityLabel.setFont(Font.font("Arial", 14));
         cityLabel.setFill(Color.BLACK);
-        ComboBox<String> comboCity = new ComboBox<>();
-        comboCity.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getCity).distinct().toList()
-        ));
-        styleComboBox(comboCity);
+        TextField comboCity = new TextField();
+        styleTextField(comboCity);
+//        ComboBox<String> comboCity = new ComboBox<>();
+//        comboCity.setItems(FXCollections.observableArrayList(
+//                clientTable.getAllClients().stream().map(Client::getCity).distinct().toList()
+//        ));
+//        styleComboBox(comboCity);
+
         root.add(cityLabel, 0, 6);
         root.add(comboCity, 1, 6);
 
@@ -89,9 +94,24 @@ public class ClientsTab extends Tab {
         stateLabel.setFont(Font.font("Arial", 14));
         stateLabel.setFill(Color.BLACK);
         ComboBox<String> comboState = new ComboBox<>();
-        comboState.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getState).distinct().toList()
-        ));
+        comboState.setPromptText("Select State");
+        ArrayList<String> states = new ArrayList<>();
+        states.add("AB");
+        states.add("BC");
+        states.add("MB");
+        states.add("NB");
+        states.add("NL");
+        states.add("NT");
+        states.add("NS");
+        states.add("NU");
+        states.add("ON");
+        states.add("PE");
+        states.add("QC");
+        states.add("SK");
+        states.add("YT");
+
+        comboState.setItems(FXCollections.observableArrayList(states));
+
         styleComboBox(comboState);
         root.add(stateLabel, 0, 7);
         root.add(comboState, 1, 7);
@@ -103,7 +123,7 @@ public class ClientsTab extends Tab {
             if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty() ||
                     emailTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() ||
                     streetNumberTextField.getText().isEmpty() || streetNameTextField.getText().isEmpty() ||
-                    comboCity.getValue() == null || comboState.getValue() == null) {
+                    comboCity.getText() == null || comboState.getValue() == null) {
 
                 System.out.println("Please fill in all fields correctly.");
 
@@ -113,7 +133,7 @@ public class ClientsTab extends Tab {
                 phoneTextField.clear();
                 streetNumberTextField.clear();
                 streetNameTextField.clear();
-                comboCity.setValue(null);
+                comboCity.clear();
                 comboState.setValue(null);
 
                 return;
@@ -128,7 +148,7 @@ public class ClientsTab extends Tab {
                         phoneTextField.getText(),
                         streetNumberTextField.getText(),
                         streetNameTextField.getText(),
-                        comboCity.getValue(),
+                        comboCity.getText(),
                         comboState.getValue()
                 );
 
@@ -143,7 +163,7 @@ public class ClientsTab extends Tab {
                 phoneTextField.clear();
                 streetNumberTextField.clear();
                 streetNameTextField.clear();
-                comboCity.setValue(null);
+                comboCity.clear();
                 comboState.setValue(null);
 
                 System.out.println("Client added successfully.");

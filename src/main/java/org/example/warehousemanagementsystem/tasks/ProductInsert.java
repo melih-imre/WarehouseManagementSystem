@@ -21,7 +21,8 @@ public class ProductInsert implements Runnable{
     }
     @Override
     public void run() {
-        try (Connection connection= Database.getInstance().getConnection()){
+        try {
+            Connection connection= Database.getInstance().getConnection();
             String insertQuery ="INSERT INTO "+ DBConst.TABLE_PRODUCT+" ("+
                     DBConst.COLUMN_SKU+", "+
                     DBConst.COLUMN_BRAND_ID+", "+
