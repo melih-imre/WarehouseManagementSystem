@@ -16,8 +16,9 @@ public class CategoryInsert implements Runnable {
     }
     @Override
     public void run(){
-        try (Connection connection = Database.getInstance().getConnection()){
-        String insertquery = "INSERT INTO "+ DBConst.TABLE_CATEGORIES+" ("+
+        try {
+            Connection connection = Database.getInstance().getConnection();
+            String insertquery = "INSERT INTO "+ DBConst.TABLE_CATEGORIES+" ("+
                 DBConst.CATEGORY_COLUMN_CATEGORY + ")VALUES ('" + category + "')";
         try (Statement statement = connection.createStatement()){
             statement.executeUpdate(insertquery);

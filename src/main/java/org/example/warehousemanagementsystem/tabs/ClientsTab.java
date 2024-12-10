@@ -78,11 +78,14 @@ public class ClientsTab extends Tab {
         Text cityLabel = new Text("City:");
         cityLabel.setFont(Font.font("Arial", 14));
         cityLabel.setFill(Color.BLACK);
-        ComboBox<String> comboCity = new ComboBox<>();
-        comboCity.setItems(FXCollections.observableArrayList(
-                clientTable.getAllClients().stream().map(Client::getCity).distinct().toList()
-        ));
-        styleComboBox(comboCity);
+        TextField comboCity = new TextField();
+        styleTextField(comboCity);
+//        ComboBox<String> comboCity = new ComboBox<>();
+//        comboCity.setItems(FXCollections.observableArrayList(
+//                clientTable.getAllClients().stream().map(Client::getCity).distinct().toList()
+//        ));
+//        styleComboBox(comboCity);
+
         root.add(cityLabel, 0, 6);
         root.add(comboCity, 1, 6);
 
@@ -120,7 +123,7 @@ public class ClientsTab extends Tab {
             if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty() ||
                     emailTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() ||
                     streetNumberTextField.getText().isEmpty() || streetNameTextField.getText().isEmpty() ||
-                    comboCity.getValue() == null || comboState.getValue() == null) {
+                    comboCity.getText() == null || comboState.getValue() == null) {
 
                 System.out.println("Please fill in all fields correctly.");
 
@@ -130,7 +133,7 @@ public class ClientsTab extends Tab {
                 phoneTextField.clear();
                 streetNumberTextField.clear();
                 streetNameTextField.clear();
-                comboCity.setValue(null);
+                comboCity.clear();
                 comboState.setValue(null);
 
                 return;
@@ -145,7 +148,7 @@ public class ClientsTab extends Tab {
                         phoneTextField.getText(),
                         streetNumberTextField.getText(),
                         streetNameTextField.getText(),
-                        comboCity.getValue(),
+                        comboCity.getText(),
                         comboState.getValue()
                 );
 
@@ -160,7 +163,7 @@ public class ClientsTab extends Tab {
                 phoneTextField.clear();
                 streetNumberTextField.clear();
                 streetNameTextField.clear();
-                comboCity.setValue(null);
+                comboCity.clear();
                 comboState.setValue(null);
 
                 System.out.println("Client added successfully.");
